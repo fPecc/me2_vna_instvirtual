@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Kysight VNA Virtual Instrument</title>
+
+    <!-- Bootstrap -->
+    <link href="../node_modules/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../node_modules/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../node_modules/angular-datetime-range/dist/datetime-range.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../node_modules/gentelella/build/css/custom.min.css" rel="stylesheet">
+    <!-- Angular JS Material -->
+    <link href="../node_modules/angular-material/angular-material.min.css" rel="stylesheet">
+    <!-- ngTables -->
+    <link rel="stylesheet"; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+    <!--script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script-->
+    <!--link rel="stylesheet" href="https://rawgit.com/esvit/ng-table/master/dist/ng-table.min.css">
+    <script src="https://rawgit.com/esvit/ng-table/master/dist/ng-table.min.js"></script-->
+    <!--link rel="stylesheet"; href="http://cdn.jsdelivr.net/angular.ngtable/0.3.2/ng-table.css">
+    <script src="http://cdn.jsdelivr.net/angular.ngtable/0.3.2/ng-table.js"></script-->
+    <!-- Custom Siemens Theme -->
+    <link href="styles/siemens-theme.css" rel="stylesheet">
+    <link href="styles/editable-table.css" rel="stylesheet">
+    <!-- iziToast (Notifications) -->
+    <link rel="stylesheet" href="../node_modules/izitoast/dist/css/iziToast.min.css">
+
+  </head>
+
+    <script src="../node_modules/izitoast/dist/js/iziToast.min.js" type="text/javascript"></script>
+    <script src="../node_modules/angular/angular.min.js" ></script>
+    <script src="../node_modules/angular-route/angular-route.min.js" ></script>
+    <script src="../node_modules/angular-animate/angular-animate.min.js"></script>
+    <script src="../node_modules/angular-aria/angular-aria.min.js"></script>
+    <script src="../node_modules/angular-material/angular-material.min.js"></script>
+    
+
+    <script src="../node_modules/moment/moment.js" ></script>
+    <script src="../node_modules/angular-datetime-range/dist/datetime-range.min.js" ></script>
+    <script src="../node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="../node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+    <script src="app/app.js" ></script>
+    
+    <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+
+    <script src="node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+
+  <body class="nav-md siemens-bg-color" ng-app="myApp">
+    
+    <div class="container body" id="_mdspcontent">
+      <div class="main_container">
+        
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view siemens-bg-color">
+            
+            <div class="clearfix"></div>
+            <div class="navbar nav_title siemens-bg-color-title" style="z-index: 1;">
+                Keysight VNA Virtual Instrument
+            </div>
+
+            <!-- sidebar menu -->
+            <div  id="sidebar-menu" class="main_menu_side hidden-print main_menu siemens-bg-color" style="position: relative; top: 15px;">
+              <div class="menu_section">
+                <ul class="nav side-menu">
+                    <li><a><i class="fa fa-columns"></i>Navegacion<span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                          <li><a href="#!template-basico"><i class="fa fa-chart"></i>Vista básica</a></li>
+                          <li><a href="#!trendPredictionConfig"><i class="fa fa-cogs"></i>Configuración</a></li>
+                      </ul>
+                    </li>
+                  <li><a><i class="fa fa-cogs"></i> Multi-level <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a><i class="fa fa-cog"></i>Level One<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li><a>Level Two</a>
+                              <ul class="nav child_menu">
+                                <li><a href="#level3_1">Level Three</a>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><a href="#level1_2">Level One</a>
+                        </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- /sidebar menu -->
+
+          </div>
+        </div>
+
+        <!-- page content -->
+        <div class="right_col" role="main" ng-controller="LineCtrl as ctrl">
+          <!--div ng-view></div-->
+          <div class="row top_tiles">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <canvas id="line" class="chart chart-line" chart-data="data"
+                chart-labels="labels" chart-series="series" chart-options="options"
+                chart-dataset-override="datasetOverride" chart-click="onClick">
+              </canvas>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <canvas id="line" class="chart chart-line" chart-data="data"
+                chart-labels="labels" chart-series="series" chart-options="options"
+                chart-dataset-override="datasetOverride" chart-click="onClick">
+              </canvas>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <canvas id="line" class="chart chart-line" chart-data="data"
+                chart-labels="labels" chart-series="series" chart-options="options"
+                chart-dataset-override="datasetOverride" chart-click="onClick">
+              </canvas>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <canvas id="line" class="chart chart-line" chart-data="data"
+                chart-labels="labels" chart-series="series" chart-options="options"
+                chart-dataset-override="datasetOverride" chart-click="onClick">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com" style="background-color: transparent">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+
+      </div>
+    </div>
+
+    <!-- MindSphere OS bar -->
+    <!-- jQuery -->
+    <script src="../node_modules/gentelella/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../node_modules/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../node_modules/gentelella/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../node_modules/gentelella/vendors/nprogress/nprogress.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../node_modules/gentelella/build/js/custom.min.js"></script>
+
+  </body>
+</html>

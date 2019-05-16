@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+/* Custom siemens theme*/
+
+.siemens-bg-color {
+     background: #2B333D;
+}
+
+.siemens-bg-color a {
+    background: #2B333D;
+}
+
+.siemens-title {
+    position: relative;
+    padding-left: 10px;
+    top: 18px;
+}
+
+.siemens-bg-color-title {
+     background-color: #333C47;
+}
