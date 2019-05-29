@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "db85970a-3a60-4060-9543-008c5723c1b5",
+		"name": "VNA_server_backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getBatteryCharge",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/getBatteryCharge",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"getBatteryCharge"
+					]
+				},
+				"description": "d"
+			},
+			"response": []
+		},
+		{
+			"name": "getDebugState",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/getDebugState",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"getDebugState"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

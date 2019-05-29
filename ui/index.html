@@ -46,6 +46,7 @@
     <script src="../node_modules/chart.js/dist/Chart.min.js"></script>
     <script src="../node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
     <script src="app/app.js" ></script>
+    <script src="app/components/general.js" ></script>
     
     <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
 
@@ -100,44 +101,16 @@
         </div>
 
         <!-- page content -->
-        <div class="right_col" role="main" ng-controller="LineCtrl as ctrl">
-          <!--div ng-view></div-->
-          <div class="row top_tiles">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-              <canvas id="line" class="chart chart-line" chart-data="data"
-                chart-labels="labels" chart-series="series" chart-options="options"
-                chart-dataset-override="datasetOverride" chart-click="onClick">
-              </canvas>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
-              <canvas id="line" class="chart chart-line" chart-data="data"
-                chart-labels="labels" chart-series="series" chart-options="options"
-                chart-dataset-override="datasetOverride" chart-click="onClick">
-              </canvas>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-              <canvas id="line" class="chart chart-line" chart-data="data"
-                chart-labels="labels" chart-series="series" chart-options="options"
-                chart-dataset-override="datasetOverride" chart-click="onClick">
-              </canvas>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
-              <canvas id="line" class="chart chart-line" chart-data="data"
-                chart-labels="labels" chart-series="series" chart-options="options"
-                chart-dataset-override="datasetOverride" chart-click="onClick">
-              </canvas>
-            </div>
-          </div>
+        <div class="right_col" role="main">
+          <div ng-view></div>
         </div>
-      </div>
+
         <!-- /page content -->
 
         <!-- footer content -->
-        <footer>
+        <footer  ng-controller="GeneralCtrl as ctrl">
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com" style="background-color: transparent">Colorlib</a>
+            Nivel de bateria: {{ctrl.batteryCharge}} %
           </div>
           <div class="clearfix"></div>
         </footer>

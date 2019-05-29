@@ -8,6 +8,13 @@ app.config(function($routeProvider) {
     });
 });
 
+app.config(function($routeProvider) {
+  $routeProvider
+      .when("/template-basico", {
+          templateUrl : "views/components/template-basico.html"
+      });
+});
+
 app.controller("LineCtrl", function ($scope) {
 
     $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];

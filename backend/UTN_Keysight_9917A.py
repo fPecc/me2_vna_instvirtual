@@ -2,8 +2,24 @@ import visa
 
 class VNA:
     def __init__(self,connectionString):
-        rm = visa.ResourceManager('C:\\Program Files (x86)\\IVI Foundation\\VISA\\WinNT\\agvisa\\agbin\\visa32.dll')
-        self.myFieldFox = rm.open_resource(connectionString)
+        if connectionString == "Debug":
+            print ("----------------------------------------")
+            print ("Starting in Debug mode!")
+            print ("----------------------------------------")
+            self.debug = True
+        else:
+            rm = visa.ResourceManager('C:\\Program Files (x86)\\IVI Foundation\\VISA\\WinNT\\agvisa\\agbin\\visa32.dll')
+            self.myFieldFox = rm.open_resource(connectionString)
+            self.debug = False
+        
+
+    def getBatteryCharge(self):
+        if not self.debug:
+            self.myFieldFox.write("SYST:BATT:ABSC?")
+            ret = self.myFieldFox.read()
+        else:
+            ret = 98
+        return ret
 
     def Errcheck(self):
 
