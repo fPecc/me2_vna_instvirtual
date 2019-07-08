@@ -3,11 +3,16 @@ from flask import Flask
 from flask import jsonify
 from flask_cors import CORS
 
-myVNA = VNA("TCPIP::10.128.0.206::inst0::INSTR")
-# myVNA = VNA("Debug")
+# myVNA = VNA("TCPIP::10.128.0.206::inst0::INSTR")
+myVNA = VNA("Debug")
 
 app = Flask(__name__)
 CORS(app)
+
+@app.route("/api/getActualConfig", methods=['GET'])
+def getActualConfig():
+    value = myVNA.getActualConfig()
+    return jsonify(value)
 
 @app.route("/api/getBatteryCharge", methods=['GET'])
 def getBatteryCharge():

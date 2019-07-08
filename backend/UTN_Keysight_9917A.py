@@ -18,7 +18,47 @@ class VNA:
             rm = visa.ResourceManager('C:\\Program Files (x86)\\IVI Foundation\\VISA\\WinNT\\agvisa\\agbin\\visa32.dll')
             self.myFieldFox = rm.open_resource(connectionString)
             self.debug = False
+
+    def getActualConfig(self) -> object:
+        """Gets the actual configuration of the VNA screen
         
+        Returns:
+            object -- Object containing the configuration of the VNA screen
+        """
+        if not self.debug:
+            ret = {}
+        else:
+            trace1 = {
+                        'number': 1,
+                        'minFreq': 100,
+                        'maxFreq': 1000,
+                        'scale': 'log',
+                        'type': 'bode'
+                    }
+            trace2 = {
+                        'number': 2,
+                        'minFreq': 200,
+                        'maxFreq': 10000,
+                        'scale': 'log',
+                        'type': 'bode'
+                    }
+            trace3 = {
+                        'number': 3,
+                        'minFreq': 500,
+                        'maxFreq': 10000,
+                        'scale': 'linear',
+                        'type': 'bode'
+                    }
+            trace4 = {
+                        'number': 4,
+                        'minFreq': 1000,
+                        'maxFreq': 10000,
+                        'scale': 'log',
+                        'type': 'bode'
+                    }
+            ret = {'traces': [ trace1, trace2, trace3, trace4 ]}
+        return ret
+
     def getNumberOfTraces(self) -> int:
         """Gets the number of traces on the screen
         
