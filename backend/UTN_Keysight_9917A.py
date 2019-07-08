@@ -30,31 +30,55 @@ class VNA:
         else:
             trace1 = {
                         'number': 1,
-                        'minFreq': 100,
-                        'maxFreq': 1000,
-                        'scale': 'log',
-                        'type': 'bode'
+                        'xMin': 100,
+                        'xMax': 1000,
+                        'yMin': 100,
+                        'yMax': 1000,
+                        'xScale': 'logarithmic',
+                        'yScale': 'logarithmic',
+                        'type': 'bode',
+                        'title': 'S11',
+                        'xLabel': 'xLabel1',
+                        'yLabel': 'yLabel1'
                     }
             trace2 = {
                         'number': 2,
-                        'minFreq': 200,
-                        'maxFreq': 10000,
-                        'scale': 'log',
-                        'type': 'bode'
+                        'xMin': 1,
+                        'xMax': 100,
+                        'yMin': 1,
+                        'yMax': 1000,
+                        'xScale': 'linear',
+                        'yScale': 'linear',
+                        'type': 'bode',
+                        'title': 'S21',
+                        'xLabel': 'xLabel1',
+                        'yLabel': 'yLabel1'
                     }
             trace3 = {
                         'number': 3,
-                        'minFreq': 500,
-                        'maxFreq': 10000,
-                        'scale': 'linear',
-                        'type': 'bode'
+                        'xMin': 500,
+                        'xMax': 10000,
+                        'yMin': 100,
+                        'yMax': 10000,
+                        'xScale': 'linear',
+                        'yScale': 'logarithmic',
+                        'type': 'bode',
+                        'title': 'S12',
+                        'xLabel': 'xLabel1',
+                        'yLabel': 'yLabel1'
                     }
             trace4 = {
                         'number': 4,
-                        'minFreq': 1000,
-                        'maxFreq': 10000,
-                        'scale': 'log',
-                        'type': 'bode'
+                        'xMin': 100,
+                        'xMax': 10000,
+                        'yMin': 500,
+                        'yMax': 10000,
+                        'xScale': 'logarithmic',
+                        'yScale': 'linear',
+                        'type': 'bode',
+                        'title': 'S22',
+                        'xLabel': 'xLabel1',
+                        'yLabel': 'yLabel1'
                     }
             ret = {'traces': [ trace1, trace2, trace3, trace4 ]}
         return ret
