@@ -18,10 +18,10 @@
     "angular-material": "^1.1.4",
     "angular-messages": "^1.7.2",
     "angular-route": "^1.6.5",
-    "atob": "2.0.3",
+    "atob": "^2.1.2",
     "body-parser": "^1.18.3",
     "btoa": "1.1.2",
-    "cfenv": "^1.0.4",
+    "cfenv": "^1.2.2",
     "chart.js": "^2.6.0",
     "express": "^4.15.3",
     "express-prettify": "^0.0.7",
@@ -29,7 +29,8 @@
     "izitoast": "^1.4.0",
     "jwt-simple": "^0.5.1",
     "moment": "^2.18.1",
+    "nodemon": "^1.19.1",
     "pg": "^7.8.1",
-    "request": "2.81.0"
+    "request": "^2.88.0"
   }
 }
