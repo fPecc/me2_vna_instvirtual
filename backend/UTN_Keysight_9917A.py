@@ -25,8 +25,25 @@ class VNA:
         Returns:
             object -- Object containing the configuration of the VNA screen
         """
-        if not self.debug:
-            ret = {}
+        if not self.debug:#####################
+            ntraces = myVNA.getNumberOfTraces()
+            for i in range(1,ntraces+1)
+                selectTrace(i)
+                trace={
+                        'number': i,
+                        'xMin': getStartFrequency(),
+                        'xMax': getStopFrequency(),
+                        'yMin': getmindbm(),
+                        'yMax': getmaxdbm(),
+                        'xScale': getxscale(), # ver x scale
+                        'yScale': getyscale(), # ver y scale
+                        'type': getTypeFormat(),
+                        'title': getTraceTitle(),
+                        'xLabel': getxLabel(),
+                        'yLabel': getyLabel()
+                }
+                traces[trace]   
+            ret = {'traces'}
         else:
             trace1 = {
                         'number': 1,
@@ -227,7 +244,7 @@ class VNA:
             self.myFieldFox.write("SENS:FREQ:STAR?")
             ret = self.myFieldFox.read()
         else:
-            ret = 98
+            ret = 0
         return ret
 
     def getStopFrequency(self) -> int:
@@ -240,8 +257,112 @@ class VNA:
             self.myFieldFox.write("SENS:FREQ:STOP?")
             ret = self.myFieldFox.read()
         else:
-            ret = 98
+            ret = 1000000
         return ret
+
+    def getmindbm(self) -> int:
+        """Query the min power of the trace
+        
+        Returns:
+            int -- min power in dbm
+        """
+        if not self.debug:
+            self.myFieldFox.write("")
+            ret = self.myFieldFox.read()
+        else:
+            ret = -100
+        return ret
+
+    def getmaxdbm(self) -> int:
+        """Query the max power of the trace
+        
+        Returns:
+            int -- max power in dbm
+        """
+        if not self.debug:
+            self.myFieldFox.write("")
+            ret = self.myFieldFox.read()
+        else:
+            ret = 0
+        return ret
+
+    def getxscale(self) -> int:
+        """Query the xscale of the trace
+        
+        Returns:
+            string -- linear/logaritmic scale (unit en mV/dB)
+        """
+        if not self.debug:
+            self.myFieldFox.write("TRAC:SPEC:AMPL:SCAL?")
+            ret = self.myFieldFox.read()
+        else:
+            ret = 'LOG'
+        return ret        
+
+    def getyscale(self) -> int:
+        """Query the yscale of the trace
+        
+        Returns:
+            string -- linear/logaritmic scale (unit mV/dB)
+        """
+        if not self.debug:
+            self.myFieldFox.write("[:SENSe]:AMPLitude:SCALe?")
+            ret = self.myFieldFox.read()
+        else:
+            ret = 'LOG'
+        return ret        
+
+    def getTypeFormat(self) -> int:
+        """Query the format of the trace
+        
+        Returns:
+            string -- linear/logaritmic scale (unit mV/dB)
+        """
+        if not self.debug:
+            self.myFieldFox.write("CALC[:SEL]:FORM?")
+            ret = self.myFieldFox.read()
+        else:
+            ret = 'LOG'
+        return ret        
+
+    def getTraceTitle(self) -> int:
+        """Query the title of the trace
+        
+        Returns:
+            string -- title of the trace
+        """
+        if not self.debug:
+            self.myFieldFox.write("DISPlay:TITLe:DATA?")
+            ret = self.myFieldFox.read()
+        else:
+            ret = 'DEBUG MODE'
+        return ret        
+
+    def getxLabel(self) -> int:
+        """Query the xlabel of the trace
+        
+        Returns:
+            string -- title of the trace
+        """
+        if not self.debug:
+            self.myFieldFox.write("DISPlay:TITLe:DATA?")
+            ret = self.myFieldFox.read()
+        else:
+            ret = 'xLabel'
+        return ret        
+
+    def getxLabel(self) -> int:
+        """Query the ylabel of the trace
+        
+        Returns:
+            string -- title of the trace
+        """
+        if not self.debug:
+            self.myFieldFox.write("DISPlay:TITLe:DATA?")
+            ret = self.myFieldFox.read()
+        else:
+            ret = 'yLabel'
+        return ret       
 
     def getBatteryCharge(self) -> int:
         """Gets the battery charge of the equipment
