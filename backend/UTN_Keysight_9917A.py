@@ -27,6 +27,7 @@ class VNA:
         """
         if not self.debug:#####################
             ntraces = myVNA.getNumberOfTraces()
+            traces = []
             for i in range(1,ntraces+1)
                 selectTrace(i)
                 trace={
@@ -35,15 +36,15 @@ class VNA:
                         'xMax': getStopFrequency(),
                         'yMin': getmindbm(),
                         'yMax': getmaxdbm(),
-                        'xScale': getxscale(), # ver x scale
-                        'yScale': getyscale(), # ver y scale
+                        'xScale': getxscale(),
+                        'yScale': getyscale(),
                         'type': getTypeFormat(),
                         'title': getTraceTitle(),
                         'xLabel': getxLabel(),
                         'yLabel': getyLabel()
                 }
-                traces[trace]   
-            ret = {'traces'}
+                traces.append(trace)  
+            ret = {'traces': traces}
         else:
             trace1 = {
                         'number': 1,
@@ -267,6 +268,7 @@ class VNA:
             int -- min power in dbm
         """
         if not self.debug:
+            # TODO: Buscar el comando correcto
             self.myFieldFox.write("")
             ret = self.myFieldFox.read()
         else:
@@ -280,6 +282,7 @@ class VNA:
             int -- max power in dbm
         """
         if not self.debug:
+            # TODO: Buscar el comando correcto
             self.myFieldFox.write("")
             ret = self.myFieldFox.read()
         else:
@@ -293,6 +296,7 @@ class VNA:
             string -- linear/logaritmic scale (unit en mV/dB)
         """
         if not self.debug:
+            # TODO: Verificar
             self.myFieldFox.write("TRAC:SPEC:AMPL:SCAL?")
             ret = self.myFieldFox.read()
         else:
@@ -306,6 +310,7 @@ class VNA:
             string -- linear/logaritmic scale (unit mV/dB)
         """
         if not self.debug:
+            # TODO: Verificar
             self.myFieldFox.write("[:SENSe]:AMPLitude:SCALe?")
             ret = self.myFieldFox.read()
         else:
@@ -332,6 +337,7 @@ class VNA:
             string -- title of the trace
         """
         if not self.debug:
+            # TODO: Verificar
             self.myFieldFox.write("DISPlay:TITLe:DATA?")
             ret = self.myFieldFox.read()
         else:
@@ -345,19 +351,21 @@ class VNA:
             string -- title of the trace
         """
         if not self.debug:
+            # TODO: Verificar
             self.myFieldFox.write("DISPlay:TITLe:DATA?")
             ret = self.myFieldFox.read()
         else:
             ret = 'xLabel'
         return ret        
 
-    def getxLabel(self) -> int:
+    def getyLabel(self) -> int:
         """Query the ylabel of the trace
         
         Returns:
             string -- title of the trace
         """
         if not self.debug:
+            # TODO: Verificar
             self.myFieldFox.write("DISPlay:TITLe:DATA?")
             ret = self.myFieldFox.read()
         else:
