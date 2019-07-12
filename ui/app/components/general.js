@@ -3,6 +3,8 @@
 app.controller('GeneralCtrl', ['$scope','$interval','$http', function($scope, $interval, $http) {
     var self = this;
 
+    init();
+    
     function init(){
         /*
         * Como obtener la bateria del equipo

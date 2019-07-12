@@ -56,15 +56,22 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
                                 }
                             }
                           ]
+                        },
+                        elements: {
+                            line: {
+                                    fill: false
+                            }
                         }
                       };
 
+                    self.data[i] = element.data;
+                    /*
                     self.data[i] = [
                         {x: 10,y:20},
                         {x: 100,y:100},
                         {x: 500,y:1000},
                         {x: 1000,y:2000},
-                        {x: 10000,y:3000}];
+                        {x: 10000,y:3000}];*/
                 });
 
             })

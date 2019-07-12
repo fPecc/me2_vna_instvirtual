@@ -17,6 +17,7 @@ class VNA:
         else:
             rm = visa.ResourceManager('C:\\Program Files (x86)\\IVI Foundation\\VISA\\WinNT\\agvisa\\agbin\\visa32.dll')
             self.myFieldFox = rm.open_resource(connectionString)
+            # self.myFieldFox.timeout = 30000
             self.debug = False
 
     def getActualConfig(self) -> object:
@@ -25,23 +26,25 @@ class VNA:
         Returns:
             object -- Object containing the configuration of the VNA screen
         """
-        if not self.debug:#####################
-            ntraces = myVNA.getNumberOfTraces()
+        if not self.debug:
+            ntraces = int(self.getNumberOfTraces())
             traces = []
-            for i in range(1,ntraces+1)
-                selectTrace(i)
+            for i in range(1,ntraces+1):
+                self.selectTrace(i)
+                data = self.getData()
                 trace={
                         'number': i,
-                        'xMin': getStartFrequency(),
-                        'xMax': getStopFrequency(),
-                        'yMin': getmindbm(),
-                        'yMax': getmaxdbm(),
-                        'xScale': getxscale(),
-                        'yScale': getyscale(),
-                        'type': getTypeFormat(),
-                        'title': getTraceTitle(),
-                        'xLabel': getxLabel(),
-                        'yLabel': getyLabel()
+                        'xMin': self.getStartFrequency(),
+                        'xMax': self.getStopFrequency(),
+                        'yMin': min([x['y'] for x in data]), #getmindbm(),
+                        'yMax': max([x['y'] for x in data]), #getmaxdbm(),
+                        'xScale': "linear",#self.getxscale()
+                        'yScale': "linear",#self.getyscale(),
+                        'type': "bode",#self.getTypeFormat(),
+                        'title': "Test",#self.getTraceTitle()
+                        'xLabel': "Freq",#getxLabel(),
+                        'yLabel': "Data", #getyLabel()
+                        'data': data
                 }
                 traces.append(trace)  
             ret = {'traces': traces}
@@ -100,6 +103,35 @@ class VNA:
                     }
             ret = {'traces': [ trace1, trace2, trace3, trace4 ]}
         return ret
+
+    def getYMin(self) -> int:
+        self.myFieldFox.write("CALC:DATA:FDAT?")
+        y = self.myFieldFox.read()
+        y = y.split(",")
+        return min(y)
+
+    def getYMax(self) -> int:
+        self.myFieldFox.write("CALC:DATA:FDAT?")
+        y = self.myFieldFox.read()
+        y = y.split(",")
+        return max(y)
+
+    def getData(self) -> object:
+        self.myFieldFox.write("FREQ:DATA?")
+        x = self.myFieldFox.read()
+        x = x.split(",")
+        self.myFieldFox.write("CALC:DATA:FDAT?")
+        y = self.myFieldFox.read()
+        y = y.split(",")
+        data = []
+        for i in range(1,len(x)):
+            element = {
+                'x': float(x[i]),
+                'y': float(y[i])
+            }
+            data.append(element)
+            print(x[i] + "/" + y[i])
+        return data
 
     def getNumberOfTraces(self) -> int:
         """Gets the number of traces on the screen
@@ -243,7 +275,7 @@ class VNA:
         """
         if not self.debug:
             self.myFieldFox.write("SENS:FREQ:STAR?")
-            ret = self.myFieldFox.read()
+            ret = int(self.myFieldFox.read())
         else:
             ret = 0
         return ret
@@ -256,7 +288,7 @@ class VNA:
         """
         if not self.debug:
             self.myFieldFox.write("SENS:FREQ:STOP?")
-            ret = self.myFieldFox.read()
+            ret = int(self.myFieldFox.read())
         else:
             ret = 1000000
         return ret
@@ -303,18 +335,26 @@ class VNA:
             ret = 'LOG'
         return ret        
 
-    def getyscale(self) -> int:
+    def getyscale(self) -> str:
         """Query the yscale of the trace
         
         Returns:
-            string -- linear/logaritmic scale (unit mV/dB)
-        """
+            str -- linear/logaritmic scale (unit mV/dB)
+        """        
         if not self.debug:
             # TODO: Verificar
-            self.myFieldFox.write("[:SENSe]:AMPLitude:SCALe?")
+            #self.myFieldFox.write("[:SENSe]:AMPLitude:SCALe?")
+            #self.myFieldFox.write("SENS:AMPL:SCAL?")
+            self.myFieldFox.write("CALC1:FORM?")
             ret = self.myFieldFox.read()
+            if ret == "MLOG\n":
+                ret = "logarithmic"
+            elif ret == "MLIN\n":
+                ret = "linear"
+            else:
+                ret = ""
         else:
-            ret = 'LOG'
+            ret = 'logarithmic'
         return ret        
 
     def getTypeFormat(self) -> int:
