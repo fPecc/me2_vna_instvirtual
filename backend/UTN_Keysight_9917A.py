@@ -1,4 +1,9 @@
 import visa
+import uuid
+from collections import deque
+from threading import Timer
+
+timeout = 60*5
 
 class VNA:
 
@@ -8,6 +13,11 @@ class VNA:
         Arguments:
             connectionString {string} -- Connection string (extracted from Keysight Connection Expert)
         """
+        # Users queue
+        self.usersQueue = deque([])
+        # User change timer
+        self.timer = None
+        self.timer = Timer(timeout,self.rotateUsers())
 
         if connectionString == "Debug":
             print ("----------------------------------------")
@@ -488,3 +498,46 @@ class VNA:
                 myError = list(myError)
 
         return myError
+
+    def addNewUser(self) -> str:
+        """This function adds a user to the usersQueue
+        
+        Returns:
+            str -- uuid of the added user
+        """
+        userId = str(uuid.uuid4())
+
+        if len(self.usersQueue):
+            # Start timer or logic to change user
+            self.timer.start()
+
+        self.usersQueue.append(userId)
+        return userId
+
+    def checkIfUserIsCurrent(self,userId : str) -> bool:
+        """This function checks if the session user is the one with the mutex
+        
+        Arguments:
+            userId {str} -- uuid of the user
+        
+        Returns:
+            bool -- True: user is current
+        """
+
+        if userId == userId[0]:
+            return True
+        else:
+            return False
+
+    def rotateUsers(self) -> None:
+        """Callback for the expiration of the timer
+        
+        Returns:
+            None -- 
+        """
+        self.usersQueue.rotate(-1)
+        if self.timer:
+            self.timer.start()
+
+    def deleteUser(self,uuid) -> None:
+        self.usersQueue.remove(uuid)

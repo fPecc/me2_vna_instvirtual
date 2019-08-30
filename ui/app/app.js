@@ -17,7 +17,7 @@ app.config(function($routeProvider) {
 
 app.constant('config', {  
     //backendUrl: 'https://dsbackend-mindsold.apps.eu1.mindsphere.io',
-    backendUrl: 'http://localhost:6003',
+    backendUrl: 'http://127.0.0.1:6003',
     baseUrl: '/'
   });
 

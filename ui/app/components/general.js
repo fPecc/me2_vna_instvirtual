@@ -2,9 +2,29 @@
 
 app.controller('GeneralCtrl', ['$scope','$interval','$http', function($scope, $interval, $http) {
     var self = this;
+    var getBatteryPromise;
+    var getMutexPromise;
 
     init();
     
+    $scope.$on('$destroy', function() {
+        // Poner aca todos los timers que se quieren detener
+        $interval.cancel(getBatteryPromise);
+        $interval.cancel(getMutexPromise);
+
+        // Destruir sesion
+        var req = {
+            method: 'POST',
+            url: 'http://127.0.0.1:5000/api/destroySession'
+        }
+        $http(req)
+                .then(function(response) {
+                })
+                .catch(function(err) {
+                    console.log('Augh, there was an error!', err.status, err.data);
+                });
+      });
+
     function init(){
         /*
         * Como obtener la bateria del equipo
@@ -28,7 +48,25 @@ app.controller('GeneralCtrl', ['$scope','$interval','$http', function($scope, $i
                 });
             }
         getBatteryCharge();
-        $interval(getBatteryCharge,60000);
+        getBatteryPromise = $interval(getBatteryCharge,60000);
+
+        /*
+        * Como obtener el mutex para acceder al equipo
+        */
+        function getMutex(){
+            var req = {
+                method: 'GET',
+                url: 'http://127.0.0.1:5000/api/getMutex'
+            }
+            $http(req)
+                .then(function(response) {
+                })
+                .catch(function(err) {
+                    console.log('Augh, there was an error!', err.status, err.data);
+                });
+        }
+        getMutex();
+        getMutexPromise = $interval(getMutex,5000);
     }
 
 }]);
