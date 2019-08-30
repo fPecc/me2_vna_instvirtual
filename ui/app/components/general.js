@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('GeneralCtrl', ['$scope','$interval','$http', function($scope, $interval, $http) {
+app.controller('GeneralCtrl', ['$scope','$interval','$http','$cookies', function($scope, $interval, $http, $cookies) {
     var self = this;
     var getBatteryPromise;
     var getMutexPromise;
@@ -53,13 +53,27 @@ app.controller('GeneralCtrl', ['$scope','$interval','$http', function($scope, $i
         /*
         * Como obtener el mutex para acceder al equipo
         */
+        self.permiso = "";
+
         function getMutex(){
             var req = {
                 method: 'GET',
-                url: 'http://127.0.0.1:5000/api/getMutex'
+                url: 'http://127.0.0.1:5000/api/getMutex',
+                withCredentials: true
             }
             $http(req)
                 .then(function(response) {
+                    
+                    var mutex = $cookies.get('mutex');
+                    if(mutex)
+                    {
+                        // Tengo el mutex
+                        self.permiso = "R/W";
+                    }
+                    else
+                    {
+                        self.permiso = "R";
+                    }
                 })
                 .catch(function(err) {
                     console.log('Augh, there was an error!', err.status, err.data);

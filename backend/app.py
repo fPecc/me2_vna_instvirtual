@@ -10,19 +10,18 @@ debug = True
 
 app = Flask(__name__)
 
+app.run(debug=debug, port=5000, host="localhost")
+
 if debug:
-    app.run(debug=True)
     app.logger.setLevel(logging.DEBUG)
     myVNA = VNA("Debug")
 else:
     myVNA = VNA("TCPIP::10.128.0.206::inst0::INSTR")
 
-app.config['SERVER_NAME'] = 'vnabackend.com'
-
 # Se genera la clave secreta para el modulo session
-app.secret_key = b'\xc0\x1c\x8f\x07\xd9\x1f\xcd\x8dkX\xb8\x94\xe6\xd5\xb5\xaf'
+app.config["SECRET_KEY"] = b'\xc0\x1c\x8f\x07\xd9\x1f\xcd\x8dkX\xb8\x94\xe6\xd5\xb5\xaf'
 
-CORS(app)
+# CORS(app,supports_credentials=True)
 
 @app.route("/api/getActualConfig", methods=['GET'])
 def getActualConfig():
@@ -61,10 +60,12 @@ def getMutex():
     else:
         # Usuario nunca se conectó, crear uuid y agregar a la cola de usuario
         session["uuid"] = myVNA.addNewUser()
-        app.logger.debug("New user {0} added.".format(session["uuid"]))
-        response["uuid"] = session["uuid"]
+        # app.logger.debug("New user {0} added.".format(session["uuid"]))
+        app.logger.debug(session)
+        # response["uuid"] = session["uuid"]
+        session.modified = True
 
-    return "OK"
+    return jsonify()
 
 @app.route("/api/destroySession", methods=['POST'])
 def destroySession():

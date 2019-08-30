@@ -14,6 +14,7 @@
     "angular-animate": "^1.6.6",
     "angular-aria": "^1.6.6",
     "angular-chart.js": "^1.1.1",
+    "angular-cookies": "^1.7.8",
     "angular-datetime-range": "^0.2.14",
     "angular-material": "^1.1.4",
     "angular-messages": "^1.7.2",
