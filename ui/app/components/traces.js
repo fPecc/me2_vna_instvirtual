@@ -65,6 +65,7 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
                       };
 
                     self.data[i] = element.data;
+                    console.log(self.data[i]);
                     /*
                     self.data[i] = [
                         {x: 10,y:20},
@@ -73,7 +74,7 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
                         {x: 1000,y:2000},
                         {x: 10000,y:3000}];*/
                 });
-
+                
             })
             .catch(function(err) {
                 console.log('Augh, there was an error!', err.status, err.data);

@@ -1,13 +1,13 @@
 'use strict';
 
-app.controller('GeneralCtrl', ['$scope','$interval','$http','$cookies', function($scope, $interval, $http, $cookies) {
+app.controller('GeneralCtrl', ['$scope','$interval','$http','$cookies','$window', function($scope, $interval, $http, $cookies,$window) {
     var self = this;
     var getBatteryPromise;
     var getMutexPromise;
 
     init();
     
-    $scope.$on('$destroy', function() {
+    $scope.onExit = function() {
         // Poner aca todos los timers que se quieren detener
         $interval.cancel(getBatteryPromise);
         $interval.cancel(getMutexPromise);
@@ -23,7 +23,12 @@ app.controller('GeneralCtrl', ['$scope','$interval','$http','$cookies', function
                 .catch(function(err) {
                     console.log('Augh, there was an error!', err.status, err.data);
                 });
-      });
+      };
+
+      $window.onbeforeunload =  $scope.onExit;
+    /*$scope.$on('$destroy', function() {
+        
+      });*/
 
     function init(){
         /*
@@ -79,8 +84,8 @@ app.controller('GeneralCtrl', ['$scope','$interval','$http','$cookies', function
                     console.log('Augh, there was an error!', err.status, err.data);
                 });
         }
-        getMutex();
-        getMutexPromise = $interval(getMutex,5000);
+        //getMutex();
+        //getMutexPromise = $interval(getMutex,5000);
     }
 
 }]);
