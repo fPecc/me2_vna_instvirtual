@@ -60,7 +60,7 @@
   <body class="nav-md siemens-bg-color" ng-app="myApp">
     
     <div class="container body" id="_mdspcontent">
-      <div class="main_container">
+      <div class="main_container" ng-controller="TracesCtrl as ctrl">
         
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view siemens-bg-color">
@@ -107,7 +107,7 @@
         <!-- page content -->
         <div class="right_col scroll-view siemens-bg-color container-fluid" role="main">
           <!--div ng-view></div-->
-          <div class="" ng-controller="TracesCtrl as ctrl">
+          <div class="">
     
             <div class="page-title">
                 <div class="title_left">
@@ -155,7 +155,7 @@
             </div>
           </div>
           <div class="row">
-            <a class="pull-right btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <a class="pull-right btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
               Controles
             </a>
           </div>
@@ -164,10 +164,66 @@
         <!-- /page content -->
 
         <!-- footer content -->
-        <footer id="collapseExample" ng-controller="GeneralCtrl as ctrl">
-          <div class="pull-right">
-            Nivel de bateria: {{ctrl.batteryCharge}} %
+        <footer id="collapseExample" class="collapse">
+          <div class="row">
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> Mode </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> Measure </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> BW </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> Sweep </a>
+            </div>
           </div>
+          <div class="row">
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> Freq/Dist </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> Meas Setup </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> Cal </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> Trace </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> Scale/Amptd </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> System </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> Limit </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> Save/Recall </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> Marker </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> Preset </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> 0 </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn" style="width: 100%;"> Run/Hold </a>
+            </div>
+          </div>
+          <!--div class="pull-right">
+            Nivel de bateria: {{ctrl.batteryCharge}} %
+          </div-->
           <!--div class="pull-right">
             Permiso: {{ctrl.permiso}} 
           </div-->
