@@ -85,4 +85,8 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
     };
     $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }];
     
+    self.Trace = function(){
+        console.log("Trace");
+    };
+
   }]);

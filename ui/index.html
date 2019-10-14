@@ -17,7 +17,7 @@
     <link href="../node_modules/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="../node_modules/angular-datetime-range/dist/datetime-range.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="../node_modules/gentelella/build/css/custom.min.css" rel="stylesheet">
+    <link href="styles/custom.min.css" rel="stylesheet">
     <!-- Angular JS Material -->
     <link href="../node_modules/angular-material/angular-material.min.css" rel="stylesheet">
     <!-- ngTables -->
@@ -62,7 +62,7 @@
     <div class="container body" id="_mdspcontent">
       <div class="main_container" ng-controller="TracesCtrl as ctrl">
         
-        <div class="col-md-3 left_col">
+        <!--div class="col-md-3 left_col">
           <div class="left_col scroll-view siemens-bg-color">
             
             <div class="clearfix"></div>
@@ -71,7 +71,7 @@
             </div>
 
             <!-- sidebar menu -->
-            <div  id="sidebar-menu" class="main_menu_side hidden-print main_menu siemens-bg-color" style="position: relative; top: 15px;">
+            <!--div  id="sidebar-menu" class="main_menu_side hidden-print main_menu siemens-bg-color" style="position: relative; top: 15px;">
               <div class="menu_section">
                 <ul class="nav side-menu">
                     <li><a><i class="fa fa-columns"></i>Navegacion<span class="fa fa-chevron-down"></span></a>
@@ -98,24 +98,23 @@
                   </li>
                 </ul>
               </div>
-            </div>
-            <!-- /sidebar menu -->
+            </div-->
+            <!-- /sidebar menu>
 
           </div>
-        </div>
+        </div-->
 
         <!-- page content -->
-        <div class="right_col scroll-view siemens-bg-color container-fluid" role="main">
+        <div class="right_col scroll-view siemens-bg-color" role="main">
           <!--div ng-view></div-->
-          <div class="">
     
-            <div class="page-title">
+            <!--div class="page-title">
                 <div class="title_left">
-                    <h3>Template basico</h3>
+                    <h3>Titulo a elegir</h3>
                 </div>
-            </div>
+            </div-->
             
-            <div class="clearfix"></div>
+            <!--div class="clearfix"></div-->
             
             <!--div ng-controller="BusyIndicatorCtrl as vm" layout="column" ng-cloak>
                 <md-content layout-padding>
@@ -152,8 +151,7 @@
                   chart-dataset-override="datasetOverride" chart-click="onClick">
                 </canvas>
               </div>
-            </div>
-          </div>
+            </div>    
           <div class="row">
             <a class="pull-right btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
               Controles
@@ -164,61 +162,61 @@
         <!-- /page content -->
 
         <!-- footer content -->
-        <footer id="collapseExample" class="collapse">
+        <footer id="collapseExample" class="collapse container-fluid">
           <div class="row">
             <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> Mode </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Mode </a>
             </div>
             <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> Measure </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Measure </a>
             </div>
             <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> BW </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> BW </a>
             </div>
             <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> Sweep </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Sweep </a>
             </div>
           </div>
           <div class="row">
             <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> Freq/Dist </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Freq/Dist </a>
             </div>
             <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> Meas Setup </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Meas Setup </a>
             </div>
             <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> Cal </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Cal </a>
             </div>
             <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> Trace </a>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> Scale/Amptd </a>
-            </div>
-            <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> System </a>
-            </div>
-            <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> Limit </a>
-            </div>
-            <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> Save/Recall </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#traceModal"> Trace </a>
             </div>
           </div>
           <div class="row">
             <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> Marker </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Scale/Amptd </a>
             </div>
             <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> Preset </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> System </a>
             </div>
             <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> 0 </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Limit </a>
             </div>
             <div class="col-md-3">
-              <a class="btn" style="width: 100%;"> Run/Hold </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Save/Recall </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Marker </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Preset </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> 0 </a>
+            </div>
+            <div class="col-md-3">
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Run/Hold </a>
             </div>
           </div>
           <!--div class="pull-right">
@@ -231,8 +229,30 @@
         </footer>
         <!-- /footer content -->
 
+        <!-- Modal -->
+        <div class="modal fade" id="traceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
     </div>
+  </div>
 
     <!-- MindSphere OS bar -->
     <!-- jQuery -->
