@@ -21,11 +21,12 @@ else:
 # Se genera la clave secreta para el modulo session
 app.config["SECRET_KEY"] = b'\xc0\x1c\x8f\x07\xd9\x1f\xcd\x8dkX\xb8\x94\xe6\xd5\xb5\xaf'
 
-# CORS(app,supports_credentials=True)
+CORS(app,supports_credentials=True)
 
 @app.route("/api/getActualConfig", methods=['GET'])
 def getActualConfig():
     value = myVNA.getActualConfig()
+    app.logger.debug(value)
     return jsonify(value)
 
 @app.route("/api/getBatteryCharge", methods=['GET'])
@@ -44,7 +45,7 @@ def getDebugState():
 # -------------------------------------------------------
 @app.route("/api/getMutex", methods=['GET'])
 def getMutex():
-    response = {}
+    response = {'mutex': False}
     if "uuid" in session:
         # Usuario ya se conectó una vez
         if "mutex" in session:
@@ -52,23 +53,29 @@ def getMutex():
             if not myVNA.checkIfUserIsCurrent(session["uuid"]):
                 # Quitar el mutex al usuario
                 session.pop("mutex",None)
+            else:
+                response = {'mutex': True}
         else:
             # Usuario no tiene el mutex
             if myVNA.checkIfUserIsCurrent(session["uuid"]):
                 # Asignar mutex a usuario
                 session["mutex"] = True
+                response = {'mutex': True}
     else:
         # Usuario nunca se conectó, crear uuid y agregar a la cola de usuario
         session["uuid"] = myVNA.addNewUser()
+        session["mutex"] = True
         # app.logger.debug("New user {0} added.".format(session["uuid"]))
         app.logger.debug(session)
         # response["uuid"] = session["uuid"]
         session.modified = True
 
-    return jsonify()
+    return jsonify(response)
 
 @app.route("/api/destroySession", methods=['POST'])
 def destroySession():
+    app.logger.debug(session)
     if "uuid" in session:
+        app.logger.debug(session)
         myVNA.deleteUser(session["uuid"])
     return "OK"

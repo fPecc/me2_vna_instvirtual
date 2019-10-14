@@ -70,7 +70,13 @@ class VNA:
                         'type': 'bode',
                         'title': 'S11',
                         'xLabel': 'xLabel1',
-                        'yLabel': 'yLabel1'
+                        'yLabel': 'yLabel1',
+                        'data': [
+                            {'x': 100,'y': 100},
+                            {'x': 200,'y': 150},
+                            {'x': 500,'y': 300},
+                            {'x': 1000,'y': 800}
+                            ]
                     }
             trace2 = {
                         'number': 2,
@@ -83,7 +89,13 @@ class VNA:
                         'type': 'bode',
                         'title': 'S21',
                         'xLabel': 'xLabel1',
-                        'yLabel': 'yLabel1'
+                        'yLabel': 'yLabel1',
+                        'data': [
+                            {'x': 1,'y': 100},
+                            {'x': 20,'y': 250},
+                            {'x': 50,'y': 200},
+                            {'x': 100,'y': 600}
+                            ]
                     }
             trace3 = {
                         'number': 3,
@@ -96,7 +108,13 @@ class VNA:
                         'type': 'bode',
                         'title': 'S12',
                         'xLabel': 'xLabel1',
-                        'yLabel': 'yLabel1'
+                        'yLabel': 'yLabel1',
+                        'data': [
+                            {'x': 500,'y': 100},
+                            {'x': 2000,'y': 1000},
+                            {'x': 5000,'y': 3000},
+                            {'x': 10000,'y': 8000}
+                            ]
                     }
             trace4 = {
                         'number': 4,
@@ -109,7 +127,13 @@ class VNA:
                         'type': 'bode',
                         'title': 'S22',
                         'xLabel': 'xLabel1',
-                        'yLabel': 'yLabel1'
+                        'yLabel': 'yLabel1',
+                        'data': [
+                            {'x': 100,'y': 500},
+                            {'x': 2000,'y': 5000},
+                            {'x': 5000,'y': 2000},
+                            {'x': 10000,'y': 4000}
+                            ]
                     }
             ret = {'traces': [ trace1, trace2, trace3, trace4 ]}
         return ret
