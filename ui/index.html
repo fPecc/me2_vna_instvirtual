@@ -105,20 +105,72 @@
         </div>
 
         <!-- page content -->
-        <div class="right_col" role="main">
-          <div ng-view></div>
+        <div class="right_col scroll-view siemens-bg-color container-fluid" role="main">
+          <!--div ng-view></div-->
+          <div class="" ng-controller="TracesCtrl as ctrl">
+    
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>Template basico</h3>
+                </div>
+            </div>
+            
+            <div class="clearfix"></div>
+            
+            <!--div ng-controller="BusyIndicatorCtrl as vm" layout="column" ng-cloak>
+                <md-content layout-padding>
+                    <div layout="row" layout-sm="column" layout-align="space-around">
+                        <md-progress-circular md-mode="indeterminate" ng-disabled="!busy"></md-progress-circular>
+                    </div>
+                </md-content>
+            </div-->
+            
+            <div class="row top_tiles">
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <canvas id="line" class="chart chart-line" chart-data="ctrl.data[0]"
+                  chart-options="ctrl.options[0]"
+                  chart-dataset-override="datasetOverride" chart-click="onClick">
+                </canvas>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <canvas id="line" class="chart chart-line" chart-data="ctrl.data[1]"
+                  chart-options="ctrl.options[1]"
+                  chart-dataset-override="datasetOverride" chart-click="onClick">
+                </canvas>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <canvas id="line" class="chart chart-line" chart-data="ctrl.data[2]"
+                  chart-options="ctrl.options[2]"
+                  chart-dataset-override="datasetOverride" chart-click="onClick">
+                </canvas>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <canvas id="line" class="chart chart-line" chart-data="ctrl.data[3]"
+                  chart-options="ctrl.options[3]"
+                  chart-dataset-override="datasetOverride" chart-click="onClick">
+                </canvas>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <a class="pull-right btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              Controles
+            </a>
+          </div>
         </div>
 
         <!-- /page content -->
 
         <!-- footer content -->
-        <footer  ng-controller="GeneralCtrl as ctrl">
+        <footer id="collapseExample" ng-controller="GeneralCtrl as ctrl">
           <div class="pull-right">
             Nivel de bateria: {{ctrl.batteryCharge}} %
           </div>
-          <div class="pull-right">
+          <!--div class="pull-right">
             Permiso: {{ctrl.permiso}} 
-          </div>
+          </div-->
           <div class="clearfix"></div>
         </footer>
         <!-- /footer content -->
