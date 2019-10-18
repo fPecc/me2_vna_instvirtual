@@ -9,6 +9,15 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
     self.options = [{},{},{},{}];
     self.data = [{},{},{},{}];
 
+    /*
+    * Modal trace variables
+    */
+    self.selectedTrace = 1;
+    self.minFreq = 0;
+    self.maxFreq = 0;
+    self.medFreq = 0;
+    self.bw = 0;
+
     var req = {
         method: 'GET',
         url: 'http://127.0.0.1:5000/api/getActualConfig'
@@ -89,4 +98,27 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
         console.log("Trace");
     };
 
+    /*
+    * Modal trace functions
+    */
+    self.selectedTraceClicked = function(i)
+    {
+        self.selectedTrace = i;
+        self.minFreq = self.options[i-1].scales.xAxes[0].ticks.min;
+        self.maxFreq = self.options[i-1].scales.xAxes[0].ticks.max;
+        self.medFreq = (self.minFreq+self.maxFreq)/2;
+        self.bw = self.maxFreq-self.minFreq;
+    }
+
+    self.minMaxChanged = function()
+    {
+        self.medFreq = (self.minFreq+self.maxFreq)/2;
+        self.bw = self.maxFreq-self.minFreq;
+    }
+
+    self.medBWChanged = function()
+    {
+        self.minFreq = self.medFreq-self.bw/2;
+        self.maxFreq = self.medFreq+self.bw/2;
+    }
   }]);

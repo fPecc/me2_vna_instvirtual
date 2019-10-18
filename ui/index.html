@@ -188,7 +188,7 @@
               <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Cal </a>
             </div>
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#traceModal"> Trace </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#traceModal" ng-click="ctrl.selectedTraceClicked(1)"> Trace </a>
             </div>
           </div>
           <div class="row">
@@ -229,18 +229,55 @@
         </footer>
         <!-- /footer content -->
 
-        <!-- Modal -->
+        <!-- Trace Modal -->
         <div class="modal fade" id="traceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Trace configuration</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                ...
+                <div class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" id="trace1" name="traceSelection" checked ng-click="ctrl.selectedTraceClicked(1)">
+                  <label class="custom-control-label" for="trace1">{{ctrl.options[0].title.text}}</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" id="trace2" name="traceSelection" ng-click="ctrl.selectedTraceClicked(2)">
+                  <label class="custom-control-label" for="trace2">{{ctrl.options[1].title.text}}</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" id="trace3" name="traceSelection" ng-click="ctrl.selectedTraceClicked(3)">
+                  <label class="custom-control-label" for="trace3">{{ctrl.options[2].title.text}}</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" id="trace4" name="traceSelection" ng-click="ctrl.selectedTraceClicked(4)">
+                  <label class="custom-control-label" for="trace4">{{ctrl.options[3].title.text}}</label>
+                </div>
+                <form>
+                  <div class="form-group">
+                    <label for="minFreq">Min frequency</label>
+                    <input type="number" class="form-control" id="minFreq" ng-model="ctrl.minFreq" ng-change="ctrl.minMaxChanged()"> 
+                    <small id="minFreqHelp" class="form-text text-muted">Frecuencia mínima</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="maxFreq">Max frequency</label>
+                    <input type="number" class="form-control" id="maxFreq" ng-model="ctrl.maxFreq" ng-change="ctrl.minMaxChanged()">
+                    <small id="maxFreqHelp" class="form-text text-muted">Frecuencia máxima</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="medFreq">Medium frequency</label>
+                    <input type="number" class="form-control" id="medFreq" ng-model="ctrl.medFreq" ng-change="ctrl.medBWChanged()">
+                    <small id="medFreqHelp" class="form-text text-muted">Frecuencia central</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="bw">BW</label>
+                    <input type="number" class="form-control" id="bw" ng-model="ctrl.bw" ng-change="ctrl.medBWChanged()">
+                    <small id="bwHelp" class="form-text text-muted">Ancho de banda</small>
+                  </div>
+                </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -249,7 +286,8 @@
             </div>
           </div>
         </div>
-        
+        <!-- /Trace Modal -->
+
       </div>
     </div>
   </div>

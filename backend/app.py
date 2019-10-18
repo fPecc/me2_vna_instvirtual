@@ -6,7 +6,7 @@ import os
 import logging
 
 # Cambiar esta variable a False para produccion
-debug = True
+debug = False
 
 app = Flask(__name__)
 
