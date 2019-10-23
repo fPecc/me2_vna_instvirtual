@@ -168,21 +168,21 @@
               <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Mode </a>
             </div>
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Measure </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#measureModal"> Measure </a>
             </div>
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> BW </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#bwModal"> BW </a>
             </div>
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Sweep </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#sweepModal"> Sweep </a>
             </div>
           </div>
           <div class="row">
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Freq/Dist </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#freqDistModal"> Freq/Dist </a>
             </div>
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Meas Setup </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#measSetupModal"> Meas Setup </a>
             </div>
             <div class="col-md-3">
               <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Cal </a>
@@ -193,21 +193,21 @@
           </div>
           <div class="row">
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Scale/Amptd </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#scaleModal"> Scale/Amptd </a>
             </div>
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> System </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> System </a>
             </div>
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Limit </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#limitModal"> Limit </a>
             </div>
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Save/Recall </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Save/Recall </a>
             </div>
           </div>
           <div class="row">
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false"> Marker </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Marker </a>
             </div>
             <div class="col-md-3">
               <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Preset </a>
@@ -287,7 +287,160 @@
           </div>
         </div>
         <!-- /Trace Modal -->
+        
+        <!-- Measure Modal -->
+        <div class="modal fade" id="measureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Measure configuration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Measure Modal -->
 
+        <!-- BW Modal -->
+        <div class="modal fade" id="bwModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BW configuration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /BW Modal -->
+
+        <!-- Sweep Modal -->
+        <div class="modal fade" id="sweepModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sweep configuration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Sweep Modal -->
+
+        <!-- Freq/Dist Modal -->
+        <div class="modal fade" id="freqDistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Freq/Dist configuration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Freq/Dist Modal -->
+
+        <!-- Meas Setup Modal -->
+        <div class="modal fade" id="measSetupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Meas Setup configuration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Meas Setup Modal -->
+
+        <!-- Scale/Amptd Modal -->
+        <div class="modal fade" id="scaleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Scale/Amptd configuration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Scale/Amptd Modal -->
+
+        <!-- Limit Modal -->
+        <div class="modal fade" id="limitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Limit configuration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Limit Modal -->
       </div>
     </div>
   </div>
