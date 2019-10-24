@@ -20,7 +20,7 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
 
     var req = {
         method: 'GET',
-        url: 'http://raspberrypi:5000/api/getActualConfig'
+        url: 'http://192.168.43.31:5000/api/getActualConfig'
     };
     $http(req)
             .then(function(response) {
