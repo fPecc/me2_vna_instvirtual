@@ -28,7 +28,7 @@ class VNA:
             rm = visa.ResourceManager('C:\\Program Files (x86)\\IVI Foundation\\VISA\\WinNT\\agvisa\\agbin\\visa32.dll')
             self.myFieldFox = rm.open_resource(connectionString)
             self.myFieldFox.read_termination = '\r\n'
-            # self.myFieldFox.write_termination = '\r\n'
+            self.myFieldFox.write_termination = '\r'
             # self.myFieldFox.timeout = 30000
             self.debug = False
 
