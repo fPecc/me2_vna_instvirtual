@@ -10,7 +10,7 @@ debug = True
 
 app = Flask(__name__)
 
-app.run(debug=debug, port=5000, host="localhost")
+app.run(debug=debug, port=5000, host="0.0.0.0")
 
 if debug:
     app.logger.setLevel(logging.DEBUG)
