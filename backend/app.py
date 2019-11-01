@@ -1,5 +1,5 @@
 from UTN_Keysight_9917A import VNA
-from flask import Flask, session,redirect, url_for
+from flask import Flask, session,redirect, url_for, request
 from flask import jsonify
 from flask_cors import CORS
 import os
@@ -37,6 +37,31 @@ def getBatteryCharge():
 @app.route("/api/getDebugState", methods=['GET'])
 def getDebugState():
     return jsonify({'debug':myVNA.debug})
+
+@app.route("/api/setTraceNewFreq", methods=['POST'])
+def setTraceNewFreq():
+    value = request.json
+    app.logger.debug(value)
+    myVNA.selectTrace(value['selectedTrace'])
+    myVNA.setStartFrequency(value['minFreq'])
+    myVNA.setStopFrequency(value['maxFreq'])
+    return jsonify({})
+
+@app.route("/api/setSweep", methods=['POST'])
+def setSweep():
+    value = request.json
+    app.logger.debug(value)
+    # TODO: llamar a la funcion de la libreria correspondiente
+    myVNA.setSweepTime(value['sweepTime'])
+    return jsonify({})
+
+@app.route("/api/setScale", methods=['POST'])
+def setScale():
+    value = request.json
+    app.logger.debug(value)
+    # TODO: llamar a la funcion de la libreria correspondiente
+    myVNA.selectTrace(value['selectedTrace'])
+    return jsonify({})
 
 # -------------------------------------------------------
 #

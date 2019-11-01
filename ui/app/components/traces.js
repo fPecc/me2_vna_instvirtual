@@ -4,6 +4,22 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
     var self = this;
     var baseUrl = 'http://127.0.0.1:5000/';
 
+    iziToast.settings({
+        timeout: 5000,
+        resetOnHover: false,
+        pauseOnHover: false,
+        position: 'topRight',
+        icon: 'material-icons',
+        transitionIn: 'flipInX',
+        transitionOut: 'flipOutX',
+        onOpening: function(){
+            console.log('callback abriu!');
+        },
+        onClosing: function(){
+            console.log("callback fechou!");
+        }
+    });
+
     /*
     * Obtengo los datos básicos de como esta configurado el VNA en este momento
     */
@@ -89,6 +105,10 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
                     
                 })
                 .catch(function(err) {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Probablemente el VNA se encuentra desconectado!'
+                    });
                     console.log('Augh, there was an error!', err.status, err.data);
                 });
     }
@@ -133,16 +153,93 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
         var req = {
             method: 'POST',
             url: baseUrl + 'api/setTraceNewFreq',
-            body: {
-
+            data: {
+                selectedTrace: self.selectedTrace,
+                minFreq: self.minFreq,
+                maxFreq: self.maxFreq
+            },
+            headers: {
+                "Content-Type": "application/json"
             }
         };
         $http(req)
                 .then(function(response) {
                     console.log('Trace set');
+                    iziToast.success({
+                        title: 'OK',
+                        message: 'Se modificaron correctamente los datos'
+                    });
                     self.getActualConfig();
                 })
                 .catch(function(err) {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'No se pudo completar la acción!'
+                    });
+                    console.log('Augh, there was an error!', err.status, err.data);
+                });
+    }
+
+    self.setSweep = function()
+    {
+        // TODO: completar
+        var req = {
+            method: 'POST',
+            url: baseUrl + 'api/setSweep',
+            data: {
+                sweepTime: 10
+            },
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
+        $http(req)
+                .then(function(response) {
+                    console.log('Sweep set');
+                    iziToast.success({
+                        title: 'OK',
+                        message: 'Se modificaron correctamente los datos'
+                    });
+                    self.getActualConfig();
+                })
+                .catch(function(err) {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'No se pudo completar la acción!'
+                    });
+                    console.log('Augh, there was an error!', err.status, err.data);
+                });
+    }
+
+    self.setScale = function()
+    {
+        // TODO: completar
+        var req = {
+            method: 'POST',
+            url: baseUrl + 'api/setScale',
+            data: {
+                selectedTrace: self.selectedTrace,
+                minScale: 0,
+                maxScale: 10
+            },
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
+        $http(req)
+                .then(function(response) {
+                    console.log('Scale set');
+                    iziToast.success({
+                        title: 'OK',
+                        message: 'Se modificaron correctamente los datos'
+                    });
+                    self.getActualConfig();
+                })
+                .catch(function(err) {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'No se pudo completar la acción!'
+                    });
                     console.log('Augh, there was an error!', err.status, err.data);
                 });
     }

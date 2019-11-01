@@ -198,6 +198,22 @@ class VNA:
 
         return
 
+    def setSweepTime(self,sweepTime: int) -> None:
+        """Sets the sweep time of the instrument
+        
+        Arguments:
+            sweepTime {int} -- Sweep time to set [ms?]
+        
+        Returns:
+            None
+        """
+
+        if not self.debug:
+            # TODO: buscar el parámetro correcto
+            self.myFieldFox.write("CALC:PAR:COUN " + str(sweepTime))
+
+        return
+
     def selectTrace(self,trace: int) -> None:
         """Select (make active) the current trace
         
