@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Keysight VNA Virtual Instrument</title>
+    <title>VirtualVNA</title>
 
-    <!--link rel="icon" href="https://www.frlp.utn.edu.ar/sites/default/files/inline-images/simbolo0.png"-->
+    <link rel="icon" href="https://www.frlp.utn.edu.ar/sites/default/files/inline-images/simbolo0.png">
     
     <!-- Bootstrap -->
     <link href="../node_modules/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -168,7 +168,7 @@
               <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Mode </a>
             </div>
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#measureModal"> Measure </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="true" data-toggle="modal" data-target="#measureModal"> Measure </a>
             </div>
             <div class="col-md-3">
               <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#bwModal"> BW </a>
@@ -179,16 +179,16 @@
           </div>
           <div class="row">
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#freqDistModal"> Freq/Dist </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#freqDistModal" data-target="#freqDistModal" ng-click="ctrl.selectedTraceClicked(1)"> Freq/Dist </a>
             </div>
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#measSetupModal"> Meas Setup </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="true" data-toggle="modal" data-target="#measSetupModal"> Meas Setup </a>
             </div>
             <div class="col-md-3">
               <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Cal </a>
             </div>
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#traceModal" ng-click="ctrl.selectedTraceClicked(1)"> Trace </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="true" data-toggle="modal"> Trace </a>
             </div>
           </div>
           <div class="row">
@@ -199,7 +199,7 @@
               <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> System </a>
             </div>
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#limitModal"> Limit </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="true" data-toggle="modal" data-target="#limitModal"> Limit </a>
             </div>
             <div class="col-md-3">
               <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Save/Recall </a>
@@ -240,44 +240,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="trace1_freq" name="traceSelection" checked ng-click="ctrl.selectedTraceClicked(1)">
-                  <label class="custom-control-label" for="trace1">{{ctrl.options[0].title.text}}</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="trace2_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(2)">
-                  <label class="custom-control-label" for="trace2">{{ctrl.options[1].title.text}}</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="trace3_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(3)">
-                  <label class="custom-control-label" for="trace3">{{ctrl.options[2].title.text}}</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="trace4_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(4)">
-                  <label class="custom-control-label" for="trace4">{{ctrl.options[3].title.text}}</label>
-                </div>
-                <form>
-                  <div class="form-group">
-                    <label for="minFreq">Min frequency</label>
-                    <input type="number" class="form-control" id="minFreq_freq" ng-model="ctrl.minFreq" ng-change="ctrl.minMaxChanged()"> 
-                    <small id="minFreqHelp" class="form-text text-muted">Frecuencia mínima</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="maxFreq">Max frequency</label>
-                    <input type="number" class="form-control" id="maxFreq_freq" ng-model="ctrl.maxFreq" ng-change="ctrl.minMaxChanged()">
-                    <small id="maxFreqHelp" class="form-text text-muted">Frecuencia máxima</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="medFreq">Medium frequency</label>
-                    <input type="number" class="form-control" id="medFreq_freq" ng-model="ctrl.medFreq" ng-change="ctrl.medBWChanged()" readonly>
-                    <small id="medFreqHelp" class="form-text text-muted">Frecuencia central</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="bw">BW</label>
-                    <input type="number" class="form-control" id="bw_freq" ng-model="ctrl.bw" ng-change="ctrl.medBWChanged()" readonly>
-                    <small id="bwHelp" class="form-text text-muted">Ancho de banda</small>
-                  </div>
-                </form>
+                
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -311,6 +274,7 @@
         <!-- /Measure Modal -->
 
         <!-- BW Modal -->
+        <!-- Este modal sirve para modificar el IFBW del VNA -->
         <div class="modal fade" id="bwModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -321,42 +285,11 @@
                 </button>
               </div>
               <div class="modal-body">
-                <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="trace1_bw" name="traceSelection" checked ng-click="ctrl.selectedTraceClicked(1)">
-                  <label class="custom-control-label" for="trace1">{{ctrl.options[0].title.text}}</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="trace2_bw" name="traceSelection" ng-click="ctrl.selectedTraceClicked(2)">
-                  <label class="custom-control-label" for="trace2">{{ctrl.options[1].title.text}}</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="trace3_bw" name="traceSelection" ng-click="ctrl.selectedTraceClicked(3)">
-                  <label class="custom-control-label" for="trace3">{{ctrl.options[2].title.text}}</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="trace4_bw" name="traceSelection" ng-click="ctrl.selectedTraceClicked(4)">
-                  <label class="custom-control-label" for="trace4">{{ctrl.options[3].title.text}}</label>
-                </div>
                 <form>
                   <div class="form-group">
-                    <label for="minFreq">Min frequency</label>
-                    <input type="number" class="form-control" id="minFreq_bw" ng-model="ctrl.minFreq" ng-change="ctrl.minMaxChanged()" readonly> 
-                    <small id="minFreqHelp" class="form-text text-muted">Frecuencia mínima</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="maxFreq">Max frequency</label>
-                    <input type="number" class="form-control" id="maxFreq_bw" ng-model="ctrl.maxFreq" ng-change="ctrl.minMaxChanged()" readonly>
-                    <small id="maxFreqHelp" class="form-text text-muted">Frecuencia máxima</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="medFreq">Medium frequency</label>
-                    <input type="number" class="form-control" id="medFreq_bw" ng-model="ctrl.medFreq" ng-change="ctrl.medBWChanged()">
-                    <small id="medFreqHelp" class="form-text text-muted">Frecuencia central</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="bw">BW</label>
-                    <input type="number" class="form-control" id="bw_bw" ng-model="ctrl.bw" ng-change="ctrl.medBWChanged()">
-                    <small id="bwHelp" class="form-text text-muted">Ancho de banda</small>
+                    <label for="ifBW">IFBW</label>
+                    <input type="number" class="form-control" id="ifbw_bw" ng-model="ctrl.ifbw" ng-change="ctrl.ifBWChanged()"> 
+                    <small id="ifBWHelp" class="form-text text-muted">Ancho de banda del filtro de frecuencia intermedia</small>
                   </div>
                 </form>
               </div>
@@ -370,6 +303,7 @@
         <!-- /BW Modal -->
 
         <!-- Sweep Modal -->
+        <!-- Este modal sirve para cambiar la resolucion de Sweep y el tiempo del mismo -->
         <div class="modal fade" id="sweepModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -380,7 +314,18 @@
                 </button>
               </div>
               <div class="modal-body">
-                
+                <form>
+                    <div class="form-group">
+                      <label for="sweepTime">Sweep min time</label>
+                      <input type="number" class="form-control" id="sweepTime" ng-model="ctrl.sweepTime" ng-change="ctrl.sweepTimeChanged()"> 
+                      <small id="sweepTimeHelp" class="form-text text-muted">Tiempo minimo de barrido</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="sweepResolution">Sweep resolution</label>
+                        <input type="number" class="form-control" id="sweepResolution" ng-model="ctrl.sweepResolution" ng-change="ctrl.sweepResolutionChanged()"> 
+                        <small id="sweepResolutionHelp" class="form-text text-muted">Resolución del barrido</small>
+                      </div>
+                  </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -392,6 +337,7 @@
         <!-- /Sweep Modal -->
 
         <!-- Freq/Dist Modal -->
+        <!-- Este modal sirve para cambiar frequencia min, max, center y bw de cada trace -->
         <div class="modal fade" id="freqDistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -402,7 +348,44 @@
                 </button>
               </div>
               <div class="modal-body">
-                
+                  <div class="custom-control custom-radio">
+                      <input type="radio" class="custom-control-input" id="trace1_freq" name="traceSelection" checked ng-click="ctrl.selectedTraceClicked(1)">
+                      <label class="custom-control-label" for="trace1">{{ctrl.options[0].title.text}}</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" class="custom-control-input" id="trace2_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(2)">
+                      <label class="custom-control-label" for="trace2">{{ctrl.options[1].title.text}}</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" class="custom-control-input" id="trace3_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(3)">
+                      <label class="custom-control-label" for="trace3">{{ctrl.options[2].title.text}}</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" class="custom-control-input" id="trace4_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(4)">
+                      <label class="custom-control-label" for="trace4">{{ctrl.options[3].title.text}}</label>
+                    </div>
+                    <form>
+                      <div class="form-group">
+                        <label for="minFreq">Min frequency</label>
+                        <input type="number" class="form-control" id="minFreq_freq" ng-model="ctrl.minFreq" ng-change="ctrl.minMaxChanged()"> 
+                        <small id="minFreqHelp" class="form-text text-muted">Frecuencia mínima</small>
+                      </div>
+                      <div class="form-group">
+                        <label for="maxFreq">Max frequency</label>
+                        <input type="number" class="form-control" id="maxFreq_freq" ng-model="ctrl.maxFreq" ng-change="ctrl.minMaxChanged()">
+                        <small id="maxFreqHelp" class="form-text text-muted">Frecuencia máxima</small>
+                      </div>
+                      <div class="form-group">
+                        <label for="medFreq">Medium frequency</label>
+                        <input type="number" class="form-control" id="medFreq_freq" ng-model="ctrl.medFreq" ng-change="ctrl.medBWChanged()">
+                        <small id="medFreqHelp" class="form-text text-muted">Frecuencia central</small>
+                      </div>
+                      <div class="form-group">
+                        <label for="bw">BW</label>
+                        <input type="number" class="form-control" id="bw_freq" ng-model="ctrl.bw" ng-change="ctrl.medBWChanged()">
+                        <small id="bwHelp" class="form-text text-muted">Ancho de banda</small>
+                      </div>
+                    </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -436,6 +419,7 @@
         <!-- /Meas Setup Modal -->
 
         <!-- Scale/Amptd Modal -->
+        <!-- Este modal sirve para modificar la escala de cada trace -->
         <div class="modal fade" id="scaleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -446,7 +430,29 @@
                 </button>
               </div>
               <div class="modal-body">
-                
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="trace1_freq" name="traceSelection" checked ng-click="ctrl.selectedTraceClicked(1)">
+                    <label class="custom-control-label" for="trace1">{{ctrl.options[0].title.text}}</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="trace2_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(2)">
+                    <label class="custom-control-label" for="trace2">{{ctrl.options[1].title.text}}</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="trace3_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(3)">
+                    <label class="custom-control-label" for="trace3">{{ctrl.options[2].title.text}}</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="trace4_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(4)">
+                    <label class="custom-control-label" for="trace4">{{ctrl.options[3].title.text}}</label>
+                  </div>
+                  <form>
+                    <div class="form-group">
+                      <label for="scale">Scale</label>
+                      <input type="number" class="form-control" id="scale" ng-model="ctrl.scale" ng-change="ctrl.scaleChanged()"> 
+                      <small id="scaleHelp" class="form-text text-muted">Escala</small>
+                    </div>
+                  </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

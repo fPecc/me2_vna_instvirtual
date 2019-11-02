@@ -16,17 +16,6 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
-//app.use(bodyParser.json({ type: 'application/json' }));
-
-app.get("/api/getHealth", function(req, res, next) { 
-  var data = {alive: 'true'};
-  res.json(data); 
-});
-
-app.post("/api/iziToast",function(req, res, next) { 
-  iziToast.show(req.body);
-  res.json({status: 200});
-});
 
 app.listen(appEnv.port, '0.0.0.0', function() {
   console.log("server starting on " + appEnv.url)

@@ -8,6 +8,11 @@ conda install -y --file env.packages
 conda install -y -c conda-forge pyvisa
 ```
 
+## Prerequisitos del VNA
+
+* Tiene que estar en modo NA
+* Cantidad de traces: 4
+
 ## Como correr el backend
 
 * Abrir una consola
@@ -15,6 +20,14 @@ conda install -y -c conda-forge pyvisa
     conda activate me2
     cd backend
     flask run
+    ```
+
+## Como correr el frontend
+
+* Abrir una consola
+    ```bash
+    cd ui
+    node app.js
     ```
 
 ## Recursos:

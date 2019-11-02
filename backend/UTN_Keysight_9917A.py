@@ -48,18 +48,22 @@ class VNA:
                         'number': i,
                         'xMin': self.getStartFrequency(),
                         'xMax': self.getStopFrequency(),
-                        'yMin': min([x['y'] for x in data]), #getmindbm(),
-                        'yMax': max([x['y'] for x in data]), #getmaxdbm(),
+                        'yMin': self.getmindbm(i),#min([x['y'] for x in data]), #getmindbm(),
+                        'yMax': self.getmaxdbm(i),#max([x['y'] for x in data]), #getmaxdbm(),
                         'xScale': "linear",#self.getxscale()
                         'yScale': "linear",#self.getyscale(),
                         'type': "bode",#self.getTypeFormat(),
-                        'title': "Test",#self.getTraceTitle()
+                        'title': self.getTraceTitle(i),
                         'xLabel': "Freq",#getxLabel(),
-                        'yLabel': "Data", #getyLabel()
+                        'yLabel': "dBm", #getyLabel()
                         'data': data
                 }
                 traces.append(trace)  
-            ret = {'traces': traces}
+            ret = {
+                'traces': traces, 
+                'sweepResolution': self.getSweepResolution(),
+                'IFBW': self.getIFBW() 
+                }
         else:
             trace1 = {
                         'number': 1,
@@ -71,8 +75,8 @@ class VNA:
                         'yScale': 'logarithmic',
                         'type': 'bode',
                         'title': 'S11',
-                        'xLabel': 'xLabel1',
-                        'yLabel': 'yLabel1',
+                        'xLabel': 'Freq',
+                        'yLabel': 'dBm',
                         'data': [
                             {'x': 100,'y': 100},
                             {'x': 200,'y': 150},
@@ -90,8 +94,8 @@ class VNA:
                         'yScale': 'linear',
                         'type': 'bode',
                         'title': 'S21',
-                        'xLabel': 'xLabel1',
-                        'yLabel': 'yLabel1',
+                        'xLabel': 'Freq',
+                        'yLabel': 'dBm',
                         'data': [
                             {'x': 1,'y': 100},
                             {'x': 20,'y': 250},
@@ -109,8 +113,8 @@ class VNA:
                         'yScale': 'logarithmic',
                         'type': 'bode',
                         'title': 'S12',
-                        'xLabel': 'xLabel1',
-                        'yLabel': 'yLabel1',
+                        'xLabel': 'Freq',
+                        'yLabel': 'dBm',
                         'data': [
                             {'x': 500,'y': 100},
                             {'x': 2000,'y': 1000},
@@ -128,8 +132,8 @@ class VNA:
                         'yScale': 'linear',
                         'type': 'bode',
                         'title': 'S22',
-                        'xLabel': 'xLabel1',
-                        'yLabel': 'yLabel1',
+                        'xLabel': 'Freq',
+                        'yLabel': 'dBm',
                         'data': [
                             {'x': 100,'y': 500},
                             {'x': 2000,'y': 5000},
@@ -137,7 +141,11 @@ class VNA:
                             {'x': 10000,'y': 4000}
                             ]
                     }
-            ret = {'traces': [ trace1, trace2, trace3, trace4 ]}
+            ret = {
+                'traces': [ trace1, trace2, trace3, trace4 ], 
+                'sweepResolution': 401,
+                'IFBW': 10000 
+                }
         return ret
 
     def getYMin(self) -> int:
@@ -198,21 +206,50 @@ class VNA:
 
         return
 
-    def setSweepTime(self,sweepTime: int) -> None:
-        """Sets the sweep time of the instrument
+    def setSweepResolution(self,sweepResolution: int) -> None:
+        """Sets the sweep resolution points of the instrument
         
         Arguments:
-            sweepTime {int} -- Sweep time to set [ms?]
+            sweepResolution {int} -- Sweep resolution to set
         
         Returns:
             None
         """
 
         if not self.debug:
-            # TODO: buscar el parámetro correcto
-            self.myFieldFox.write("CALC:PAR:COUN " + str(sweepTime))
+            self.myFieldFox.write("SWE:POIN " + str(sweepResolution))
 
         return
+
+    def setSweepTime(self,sweepTime: float) -> None:
+
+        if not self.debug:
+            self.myFieldFox.write("SWE:TIME " + str(sweepTime))
+
+        return
+
+    def getSweepTime(self) -> int:
+
+        if not self.debug:
+            self.myFieldFox.write("SWE:TIME?")
+            ret = self.myFieldFox.read()
+        else:
+            ret = 1
+        return ret
+
+    def getSweepResolution(self) -> int:
+        """Gets the sweep resolution points of the instrument
+        
+        Returns:
+            int -- resolution points
+        """
+
+        if not self.debug:
+            self.myFieldFox.write("SWE:POIN?")
+            ret = int(self.myFieldFox.read())
+        else:
+            ret = 401
+        return ret
 
     def selectTrace(self,trace: int) -> None:
         """Select (make active) the current trace
@@ -345,30 +382,48 @@ class VNA:
             ret = 1000000
         return ret
 
-    def getmindbm(self) -> int:
-        """Query the min power of the trace
+    def setIFBW(self, ifBW: int) -> None:
+        """Sets the IFBW of the VNA
+        
+        Arguments:
+            ifBW {int} -- IFBW to be set
         
         Returns:
-            int -- min power in dbm
+            None -- 
+        """
+
+        if not self.debug:
+            self.myFieldFox.write("SENS:BWID " + str(ifBW))
+
+        return 
+
+    def getIFBW(self) -> int:
+        """Query the IFBW of the VNA
+        
+        Returns:
+            int -- IFBW
         """
         if not self.debug:
-            # TODO: Buscar el comando correcto
-            self.myFieldFox.write("")
-            ret = self.myFieldFox.read()
+            self.myFieldFox.write("SENS:BWID?")
+            ret = int(self.myFieldFox.read())
+        else:
+            ret = 1000000
+        return ret
+
+    def getmindbm(self, trace: int) -> int:
+
+        if not self.debug:
+            self.myFieldFox.write("DISP:WIND:TRAC"+str(trace)+":Y:BOTT?")
+            ret = float(self.myFieldFox.read())
         else:
             ret = -100
         return ret
 
-    def getmaxdbm(self) -> int:
-        """Query the max power of the trace
-        
-        Returns:
-            int -- max power in dbm
-        """
+    def getmaxdbm(self,trace: int) -> int:
+
         if not self.debug:
-            # TODO: Buscar el comando correcto
-            self.myFieldFox.write("")
-            ret = self.myFieldFox.read()
+            self.myFieldFox.write("DISP:WIND:TRAC"+str(trace)+":Y:TOP?")
+            ret = float(self.myFieldFox.read())
         else:
             ret = 0
         return ret
@@ -387,7 +442,7 @@ class VNA:
             ret = 'LOG'
         return ret        
 
-    def getyscale(self) -> str:
+    def getyscale(self, trace: int) -> str:
         """Query the yscale of the trace
         
         Returns:
@@ -422,15 +477,14 @@ class VNA:
             ret = 'LOG'
         return ret        
 
-    def getTraceTitle(self) -> int:
+    def getTraceTitle(self, trace: int) -> str:
         """Query the title of the trace
         
         Returns:
             string -- title of the trace
         """
         if not self.debug:
-            # TODO: Verificar
-            self.myFieldFox.write("DISPlay:TITLe:DATA?")
+            self.myFieldFox.write("DISP:MARK:LARG:A:DEF:TRAC"+str(trace)+":MEAS??")
             ret = self.myFieldFox.read()
         else:
             ret = 'DEBUG MODE'

@@ -1,9 +1,9 @@
 {
-  "name": "mywebapp",
+  "name": "VirtualVNA",
   "version": "1.0.0",
-  "description": "Siemens Training Basic Frontend",
+  "description": "VNA virtual instrument",
   "main": "main.js",
-  "author": "Siemens AG",
+  "author": "Federico Peccia & Javier Carugno",
   "private": true,
   "scripts": {
     "start": "node app.js"

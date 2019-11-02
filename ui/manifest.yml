@@ -1,9 +1,0 @@
-applications:
-  - name: mywebapp
-    memory: 100MB
-    disk_quota: 300MB
-    routes:
-    - route: mywebapp-mindsold.apps.eu1.mindsphere.io
-    buildpacks:
-      - nodejs_buildpack
-    command: node app.js
