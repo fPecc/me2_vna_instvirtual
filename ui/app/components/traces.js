@@ -34,6 +34,8 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
     self.maxFreq = 0;
     self.medFreq = 0;
     self.bw = 0;
+    self.ifBW = 0;
+    self.scale = 0;
 
     self.getActualConfig = function()
     {
@@ -61,7 +63,8 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
                                     position: 'left',
                                     ticks: {
                                         max: element.yMax,
-                                        min: element.yMin
+                                        min: element.yMin,
+                                        stepSize: element.yPDiv
                                     },
                                     scaleLabel: {
                                         display: true,
@@ -134,6 +137,7 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
         self.maxFreq = self.options[i-1].scales.xAxes[0].ticks.max;
         self.medFreq = (self.minFreq+self.maxFreq)/2;
         self.bw = self.maxFreq-self.minFreq;
+        self.scale = 0;
     }
 
     self.minMaxChanged = function()

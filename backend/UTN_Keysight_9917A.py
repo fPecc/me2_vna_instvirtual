@@ -56,7 +56,8 @@ class VNA:
                         'title': self.getTraceTitle(i),
                         'xLabel': "Freq",#getxLabel(),
                         'yLabel': "dBm", #getyLabel()
-                        'data': data
+                        'data': data,
+                        'yPDiv': self.getYPDiv(i)
                 }
                 traces.append(trace)  
             ret = {
@@ -77,6 +78,7 @@ class VNA:
                         'title': 'S11',
                         'xLabel': 'Freq',
                         'yLabel': 'dBm',
+                        'yPDiv': 10,
                         'data': [
                             {'x': 100,'y': 100},
                             {'x': 200,'y': 150},
@@ -96,6 +98,7 @@ class VNA:
                         'title': 'S21',
                         'xLabel': 'Freq',
                         'yLabel': 'dBm',
+                        'yPDiv': 10,
                         'data': [
                             {'x': 1,'y': 100},
                             {'x': 20,'y': 250},
@@ -115,6 +118,7 @@ class VNA:
                         'title': 'S12',
                         'xLabel': 'Freq',
                         'yLabel': 'dBm',
+                        'yPDiv': 10,
                         'data': [
                             {'x': 500,'y': 100},
                             {'x': 2000,'y': 1000},
@@ -134,6 +138,7 @@ class VNA:
                         'title': 'S22',
                         'xLabel': 'Freq',
                         'yLabel': 'dBm',
+                        'yPDiv': 10,
                         'data': [
                             {'x': 100,'y': 500},
                             {'x': 2000,'y': 5000},
@@ -441,6 +446,14 @@ class VNA:
         else:
             ret = 'LOG'
         return ret        
+
+    def getYPDiv(self, trace: int) -> int:
+        if not self.debug:
+            self.myFieldFox.write("DISP:WIND:TRAC"+str(trace)+":Y:PDIV?")
+            ret = int(self.myFieldFox.read())
+        else:
+            ret = 10
+        return ret
 
     def getyscale(self, trace: int) -> str:
         """Query the yscale of the trace
