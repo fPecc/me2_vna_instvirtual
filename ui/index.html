@@ -202,7 +202,7 @@
               <a class="btn btn-primary" style="width: 100%;" ng-disabled="true" data-toggle="modal" data-target="#limitModal"> Limit </a>
             </div>
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Save/Recall </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" ng-click="ctrl.downloadCSV()"> Save/Recall </a>
             </div>
           </div>
           <div class="row">
@@ -287,15 +287,18 @@
               <div class="modal-body">
                 <form>
                   <div class="form-group">
-                    <label for="ifBW">IFBW</label>
-                    <input type="number" class="form-control" id="ifbw_bw" ng-model="ctrl.ifbw" ng-change="ctrl.ifBWChanged()"> 
+                      <label for="ifBW">IFBW:</label>
+                      <select class="form-control" id="ifbw_bw" ng-options="item as item for item in ctrl.ifBWList" ng-model="ctrl.ifBW" ng-change="ctrl.ifBWChanged()"">
+                      </select>
+                    <!--label for="ifBW">IFBW</label>
+                    <input type="number" class="form-control" id="ifbw_bw" ng-model="ctrl.ifbw" ng-change="ctrl.ifBWChanged()"--> 
                     <small id="ifBWHelp" class="form-text text-muted">Ancho de banda del filtro de frecuencia intermedia</small>
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="ctrl.setTraceNewFreq()">Save changes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="ctrl.setNewIFBW()">Save changes</button>
               </div>
             </div>
           </div>
@@ -322,14 +325,16 @@
                     </div>
                     <div class="form-group">
                         <label for="sweepResolution">Sweep resolution</label>
-                        <input type="number" class="form-control" id="sweepResolution" ng-model="ctrl.sweepResolution" ng-change="ctrl.sweepResolutionChanged()"> 
+                        <select class="form-control" id="sweepResolution" ng-options="item as item for item in ctrl.sweepResolutionList" ng-model="ctrl.sweepResolution" ng-change="ctrl.sweepResolutionChanged()">
+                        </select>
+                        <!--input type="number" class="form-control" id="sweepResolution" ng-model="ctrl.sweepResolution" ng-change="ctrl.sweepResolutionChanged()"--> 
                         <small id="sweepResolutionHelp" class="form-text text-muted">Resolución del barrido</small>
                       </div>
                   </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="ctrl.setSweep()">Save changes</button>
               </div>
             </div>
           </div>
@@ -389,7 +394,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="ctrl.setTraceNewFreq()">Save changes</button>
               </div>
             </div>
           </div>
@@ -456,7 +461,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="ctrl.setScale()">Save changes</button>
               </div>
             </div>
           </div>

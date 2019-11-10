@@ -455,6 +455,11 @@ class VNA:
             ret = 10
         return ret
 
+    def setYPDiv(self, trace: int, scale: int) -> int:
+        if not self.debug:
+            self.myFieldFox.write("DISP:WIND:TRAC"+str(trace)+":Y:PDIV " + str(scale))
+        return
+
     def getyscale(self, trace: int) -> str:
         """Query the yscale of the trace
         

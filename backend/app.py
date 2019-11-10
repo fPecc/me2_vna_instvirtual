@@ -51,16 +51,22 @@ def setTraceNewFreq():
 def setSweep():
     value = request.json
     app.logger.debug(value)
-    # TODO: llamar a la funcion de la libreria correspondiente, llamar a sweepTime y resolution
     myVNA.setSweepTime(value['sweepTime'])
+    myVNA.setSweepTime(value['sweepResolution'])
     return jsonify({})
 
-@app.route("/api/setTraceScale", methods=['POST'])
+@app.route("/api/setScale", methods=['POST'])
 def setScale():
     value = request.json
     app.logger.debug(value)
-    # TODO: llamar a la funcion de la libreria correspondiente
-    myVNA.selectTrace(value['selectedTrace'])
+    myVNA.setYPDiv(value['selectedTrace'],value['newPDiv'])
+    return jsonify({})
+
+@app.route("/api/setIFBW", methods=['POST'])
+def setIFBW():
+    value = request.json
+    app.logger.debug(value)
+    myVNA.setIFBW(value['ifbw'])
     return jsonify({})
 
 # -------------------------------------------------------

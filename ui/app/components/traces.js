@@ -36,6 +36,10 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
     self.bw = 0;
     self.ifBW = 0;
     self.scale = 0;
+    self.ifBWList = [10,100,300];
+    self.sweepTime = 0;
+    self.sweepResolution = 0;
+    self.sweepResolutionList = [10,20,30];
 
     self.getActualConfig = function()
     {
@@ -116,6 +120,33 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
                 });
     }
     
+    self.downloadCSV = function()
+    {
+        var a = document.createElement("a");
+        var csvContent = self.options[0].title.text + " Frequency [Hz],"+self.options[0].title.text+" Value [dBm],";
+        csvContent = csvContent + self.options[1].title.text+" Frequency [Hz],"+self.options[1].title.text+" Value [dBm],";
+        csvContent = csvContent + self.options[2].title.text+" Frequency [Hz],"+self.options[2].title.text+" Value [dBm],";
+        csvContent = csvContent + self.options[3].title.text+" Frequency [Hz],"+self.options[3].title.text+" Value [dBm]\n";
+        console.log(self.data[0].length)
+        for(var i =0; i <self.data[0].length; i++ ) {
+            var trace1_x = self.data[0][i].x;
+            var trace1_y = self.data[0][i].y;
+            var trace2_x = self.data[1][i].x;
+            var trace2_y = self.data[1][i].y;
+            var trace3_x = self.data[2][i].x;
+            var trace3_y = self.data[2][i].y;
+            var trace4_x = self.data[3][i].x;
+            var trace4_y = self.data[3][i].y;
+            var dataString = trace1_x+","+trace1_y+","+trace2_x+","+trace2_y+","+trace3_x+","+trace3_y+","+trace4_x+","+trace4_y+"\n";
+            csvContent +=  dataString;  
+        }
+        a.href = 'data:attachment/csv;charset=utf-8,' + encodeURI(csvContent);
+        a.target = '_blank';
+        a.download = 'measurements.csv';
+        document.body.appendChild(a);
+        a.click(); 
+    }
+
     self.getActualConfig();
 
     $scope.onClick = function (points, evt) {
@@ -186,12 +217,12 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
 
     self.setSweep = function()
     {
-        // TODO: completar
         var req = {
             method: 'POST',
             url: baseUrl + 'api/setSweep',
             data: {
-                sweepTime: 10
+                sweepTime: self.sweepTime,
+                sweepResolution: self.sweepResolution
             },
             headers: {
                 "Content-Type": "application/json"
@@ -215,16 +246,43 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
                 });
     }
 
+    self.setNewIFBW = function(){
+        var req = {
+            method: 'POST',
+            url: baseUrl + 'api/setIFBW',
+            data: {
+                ifbw: self.ifBW
+            },
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
+        $http(req)
+                .then(function(response) {
+                    console.log('IFBW set');
+                    iziToast.success({
+                        title: 'OK',
+                        message: 'Se modificaron correctamente los datos'
+                    });
+                    self.getActualConfig();
+                })
+                .catch(function(err) {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'No se pudo completar la acción!'
+                    });
+                    console.log('Augh, there was an error!', err.status, err.data);
+                });
+    }
+
     self.setScale = function()
     {
-        // TODO: completar
         var req = {
             method: 'POST',
             url: baseUrl + 'api/setScale',
             data: {
                 selectedTrace: self.selectedTrace,
-                minScale: 0,
-                maxScale: 10
+                newPDiv: self.scale
             },
             headers: {
                 "Content-Type": "application/json"
