@@ -56,6 +56,9 @@
     <script src="node_modules/chart.js/dist/Chart.min.js"></script>
     <script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
     <script src="node_modules/angular-cookies/angular-cookies.min.js"></script>
+    <!--script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.4"></script-->
 
   <body class="nav-md siemens-bg-color" ng-app="myApp">
     
@@ -156,6 +159,15 @@
             <a class="pull-right btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
               Controles
             </a>
+            <div class="pull-right" style="padding-top: 0.5%; padding-right: 1%" body="font-size: 15px">
+              Nivel de bateria: {{ctrl.batteryCharge}} %
+            </div>
+            <div class="pull-right" style="padding-top: 0.5%; padding-right: 1%" body="font-size: 15px">
+              IFBW: {{ctrl.ifBW}} Hz
+            </div>
+            <div class="pull-right" style="padding-top: 0.5%; padding-right: 1%" body="font-size: 15px">
+              Sweep Resolution: {{ctrl.sweepResolution}} 
+            </div>
           </div>
         </div>
 
@@ -193,7 +205,7 @@
           </div>
           <div class="row">
             <div class="col-md-3">
-              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#scaleModal"> Scale/Amptd </a>
+              <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#scaleModal" ng-click="ctrl.selectedTraceClicked(1)"> Scale/Amptd </a>
             </div>
             <div class="col-md-3">
               <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> System </a>
@@ -287,8 +299,8 @@
               <div class="modal-body">
                 <form>
                   <div class="form-group">
-                      <label for="ifBW">IFBW:</label>
-                      <select class="form-control" id="ifbw_bw" ng-options="item as item for item in ctrl.ifBWList" ng-model="ctrl.ifBW" ng-change="ctrl.ifBWChanged()"">
+                      <label for="ifBW">IFBW [kHz]:</label>
+                      <select class="form-control" id="ifbw_bw" ng-options="item as item for item in ctrl.ifBWList" ng-model="ctrl.ifBW" ng-change="ctrl.ifBWChanged()">
                       </select>
                     <!--label for="ifBW">IFBW</label>
                     <input type="number" class="form-control" id="ifbw_bw" ng-model="ctrl.ifbw" ng-change="ctrl.ifBWChanged()"--> 
@@ -353,7 +365,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                  <div class="custom-control custom-radio">
+                  <!--div class="custom-control custom-radio">
                       <input type="radio" class="custom-control-input" id="trace1_freq" name="traceSelection" checked ng-click="ctrl.selectedTraceClicked(1)">
                       <label class="custom-control-label" for="trace1">{{ctrl.options[0].title.text}}</label>
                     </div>
@@ -368,7 +380,7 @@
                     <div class="custom-control custom-radio">
                       <input type="radio" class="custom-control-input" id="trace4_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(4)">
                       <label class="custom-control-label" for="trace4">{{ctrl.options[3].title.text}}</label>
-                    </div>
+                    </div-->
                     <form>
                       <div class="form-group">
                         <label for="minFreq">Min frequency</label>

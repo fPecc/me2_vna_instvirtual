@@ -36,10 +36,30 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
     self.bw = 0;
     self.ifBW = 0;
     self.scale = 0;
-    self.ifBWList = [10,100,300];
+    self.ifBWList = [10,30,100,300,1000,3000,10000,30000,100000];
     self.sweepTime = 0;
     self.sweepResolution = 0;
-    self.sweepResolutionList = [10,20,30];
+    self.sweepResolutionList = [101,201,401,601,801,1001,1601,4001,10001];
+    self.batteryCharge = 0;
+
+    self.getBatteryCharge = function()
+    {
+        var req = {
+            method: 'GET',
+            url: baseUrl + 'api/getBatteryCharge'
+        };
+        $http(req)
+                .then(function(response) {
+                    self.batteryCharge = response.data.battery;                 
+                })
+                .catch(function(err) {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Probablemente el VNA se encuentra desconectado!'
+                    });
+                    console.log('Augh, there was an error!', err.status, err.data);
+                });
+    }
 
     self.getActualConfig = function()
     {
@@ -50,6 +70,8 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
         $http(req)
                 .then(function(response) {
                     var i = 0;
+                    self.ifBW = response.data.IFBW;
+                    self.sweepResolution = response.data.sweepResolution;
                     response.data.traces.forEach(element => {
                         console.log(element);
                         i = element.number - 1;
@@ -109,7 +131,7 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
                             {x: 1000,y:2000},
                             {x: 10000,y:3000}];*/
                     });
-                    
+                    self.getBatteryCharge();
                 })
                 .catch(function(err) {
                     iziToast.error({
@@ -168,7 +190,7 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
         self.maxFreq = self.options[i-1].scales.xAxes[0].ticks.max;
         self.medFreq = (self.minFreq+self.maxFreq)/2;
         self.bw = self.maxFreq-self.minFreq;
-        self.scale = 0;
+        self.scale = self.options[i-1].scales.yAxes[0].ticks.stepSize;
     }
 
     self.minMaxChanged = function()

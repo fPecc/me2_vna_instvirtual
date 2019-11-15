@@ -28,7 +28,7 @@ class VNA:
             rm = visa.ResourceManager('C:\\Program Files (x86)\\IVI Foundation\\VISA\\WinNT\\agvisa\\agbin\\visa32.dll')
             self.myFieldFox = rm.open_resource(connectionString)
             #self.myFieldFox.read_termination = '\n'
-            self.myFieldFox.write_termination = '\n'
+            #self.myFieldFox.write_termination = '\n'
             # self.myFieldFox.timeout = 30000
             self.debug = False
 
@@ -44,6 +44,14 @@ class VNA:
             for i in range(1,ntraces+1):
                 self.selectTrace(i)
                 data = self.getData()
+                if i == 1:
+                    title = "S11"
+                elif i == 2:
+                    title = "S21"
+                elif i == 3:
+                    title = "S12"
+                else:
+                    title = "S22"
                 trace={
                         'number': i,
                         'xMin': self.getStartFrequency(),
@@ -53,8 +61,8 @@ class VNA:
                         'xScale': "linear",#self.getxscale()
                         'yScale': "linear",#self.getyscale(),
                         'type': "bode",#self.getTypeFormat(),
-                        'title': self.getTraceTitle(i),
-                        'xLabel': "Freq",#getxLabel(),
+                        'title': title,#self.getTraceTitle(i),
+                        'xLabel': "Freq [Hz]",#getxLabel(),
                         'yLabel': "dBm", #getyLabel()
                         'data': data,
                         'yPDiv': self.getYPDiv(i)
@@ -313,10 +321,9 @@ class VNA:
 
         if not self.debug:
             self.myFieldFox.write("SENS:FREQ:STAR " + str(startFreq))
-            ret = self.myFieldFox.read()
-        else:
-            ret = 98
-        return ret
+            #ret = self.myFieldFox.read()
+
+        return 
 
     def setStopFrequency(self, stopFreq: int) -> None:
         """Set the stop frequency of the trace
@@ -330,10 +337,8 @@ class VNA:
 
         if not self.debug:
             self.myFieldFox.write("SENS:FREQ:STOP " + str(stopFreq))
-            ret = self.myFieldFox.read()
-        else:
-            ret = 98
-        return ret
+
+        return 
 
     def getCenterFrequency(self) -> int:
         """Query the center frequency of the trace
@@ -450,7 +455,7 @@ class VNA:
     def getYPDiv(self, trace: int) -> int:
         if not self.debug:
             self.myFieldFox.write("DISP:WIND:TRAC"+str(trace)+":Y:PDIV?")
-            ret = int(self.myFieldFox.read())
+            ret = float(self.myFieldFox.read())
         else:
             ret = 10
         return ret
@@ -502,7 +507,7 @@ class VNA:
             string -- title of the trace
         """
         if not self.debug:
-            self.myFieldFox.write("DISP:MARK:LARG:A:DEF:TRAC"+str(trace)+":MEAS??")
+            self.myFieldFox.write("DISP:MARK:LARG:A:DEF:TRAC"+str(trace)+":MEAS?")
             ret = self.myFieldFox.read()
         else:
             ret = 'DEBUG MODE'
