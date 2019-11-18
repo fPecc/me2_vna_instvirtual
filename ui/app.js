@@ -27,6 +27,6 @@ app.post("/api/iziToast",function(req, res, next) {
   res.json({status: 200});
 });
 
-app.listen(appEnv.port, appEnv.bind, function() {
+app.listen(appEnv.port, '0.0.0.0', function() {
   console.log("server starting on " + appEnv.url)
 });

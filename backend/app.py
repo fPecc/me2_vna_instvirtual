@@ -16,7 +16,7 @@ debug = True
 
 app = Flask(__name__)
 
-app.run(debug=debug, port=5000, host="0.0.0.0")
+#app.run(debug=debug, port=5000, host="0.0.0.0")
 
 if debug:
     app.logger.setLevel(logging.DEBUG)
@@ -84,3 +84,6 @@ def setIFBW():
     myVNA.setIFBW(value['ifbw'])
     sem.release()
     return jsonify({})
+
+if __name__ == '__main__':
+    app.run(debug=debug,host='0.0.0.0',port=5000)

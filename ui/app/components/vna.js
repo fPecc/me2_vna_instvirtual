@@ -10,7 +10,7 @@ app.config(function($routeProvider) {
 
 app.controller("VnaCtrl", ['$scope','$http', function($scope, $http) {
     var self = this;
-    var baseUrl = 'http://127.0.0.1:5000/';
+    var baseUrl = 'http://190.195.210.153:5000/';
 
     iziToast.settings({
         timeout: 5000,
