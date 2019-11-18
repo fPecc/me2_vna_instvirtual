@@ -17,9 +17,9 @@ conda install -y -c conda-forge pyvisa
 
 * Abrir una consola
     ```bash
-    conda activate me2
+    conda activate me2 # solo si esta instalado conda, en la raspberry no hace falta
     cd backend
-    flask run
+    python3 app.py
     ```
 
 ## Como correr el frontend
