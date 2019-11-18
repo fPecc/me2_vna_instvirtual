@@ -1,0 +1,383 @@
+<div class="" ng-controller="VnaCtrl as ctrl">
+    <div class="row">
+      <div class="page-title">
+        <div class="title_left">
+          <h3>VNA</h3>
+        </div>
+      </div> 
+    </div> 
+  <div class="row top_tiles">
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <canvas id="line" class="chart chart-line" chart-data="ctrl.data[0]"
+          chart-options="ctrl.options[0]"
+          chart-dataset-override="datasetOverride" chart-click="onClick">
+        </canvas>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <canvas id="line" class="chart chart-line" chart-data="ctrl.data[1]"
+          chart-options="ctrl.options[1]"
+          chart-dataset-override="datasetOverride" chart-click="onClick">
+        </canvas>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <canvas id="line" class="chart chart-line" chart-data="ctrl.data[2]"
+          chart-options="ctrl.options[2]"
+          chart-dataset-override="datasetOverride" chart-click="onClick">
+        </canvas>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <canvas id="line" class="chart chart-line" chart-data="ctrl.data[3]"
+          chart-options="ctrl.options[3]"
+          chart-dataset-override="datasetOverride" chart-click="onClick">
+        </canvas>
+      </div>
+    </div>    
+  <div class="row">
+    <a class="pull-right btn btn-primary" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+      Controles
+    </a>
+    <div class="pull-right" style="padding-top: 0.5%; padding-right: 1%" body="font-size: 15px">
+      Nivel de bateria: {{ctrl.batteryCharge}} %
+    </div>
+    <div class="pull-right" style="padding-top: 0.5%; padding-right: 1%" body="font-size: 15px">
+      IFBW: {{ctrl.ifBW}} kHz
+    </div>
+    <div class="pull-right" style="padding-top: 0.5%; padding-right: 1%" body="font-size: 15px">
+      Sweep Resolution: {{ctrl.sweepResolution}} 
+    </div>
+  </div>
+
+<!-- /page content -->
+
+<!-- footer content -->
+<footer id="collapseExample" class="collapse container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Mode </a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="true" data-toggle="modal" data-target="#measureModal"> Measure </a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#bwModal"> BW </a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#sweepModal"> Sweep </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#freqDistModal" data-target="#freqDistModal" ng-click="ctrl.selectedTraceClicked(1)"> Freq/Dist </a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="true" data-toggle="modal" data-target="#measSetupModal"> Meas Setup </a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Cal </a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="true" data-toggle="modal"> Trace </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" data-toggle="modal" data-target="#scaleModal" ng-click="ctrl.selectedTraceClicked(1)"> Scale/Amptd </a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> System </a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="true" data-toggle="modal" data-target="#limitModal"> Limit </a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="false" ng-click="ctrl.downloadCSV()"> Save/Recall </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Marker </a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Preset </a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> 0 </a>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="width: 100%;" ng-disabled="true"> Run/Hold </a>
+    </div>
+  </div>
+  <!--div class="pull-right">
+    Nivel de bateria: {{ctrl.batteryCharge}} %
+  </div-->
+  <!--div class="pull-right">
+    Permiso: {{ctrl.permiso}} 
+  </div-->
+  <div class="clearfix"></div>
+</footer>
+<!-- /footer content -->
+
+<!-- Trace Modal -->
+<div class="modal fade" id="traceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Trace configuration</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="ctrl.setTraceNewFreq()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Trace Modal -->
+
+<!-- Measure Modal -->
+<div class="modal fade" id="measureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Measure configuration</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Measure Modal -->
+
+<!-- BW Modal -->
+<!-- Este modal sirve para modificar el IFBW del VNA -->
+<div class="modal fade" id="bwModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">BW configuration</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+              <label for="ifBW">IFBW [kHz]</label>
+              <select class="form-control" id="ifbw_bw" ng-options="item as item for item in ctrl.ifBWList" ng-model="ctrl.ifBW" ng-change="ctrl.ifBWChanged()">
+              </select>
+            <!--label for="ifBW">IFBW</label>
+            <input type="number" class="form-control" id="ifbw_bw" ng-model="ctrl.ifbw" ng-change="ctrl.ifBWChanged()"--> 
+            <small id="ifBWHelp" class="form-text text-muted">Ancho de banda del filtro de frecuencia intermedia [kHz]</small>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="ctrl.setNewIFBW()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /BW Modal -->
+
+<!-- Sweep Modal -->
+<!-- Este modal sirve para cambiar la resolucion de Sweep y el tiempo del mismo -->
+<div class="modal fade" id="sweepModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sweep configuration</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="form-group">
+              <label for="sweepTime">Sweep min time [s]</label>
+              <input type="number" class="form-control" id="sweepTime" ng-model="ctrl.sweepTime" ng-change="ctrl.sweepTimeChanged()"> 
+              <small id="sweepTimeHelp" class="form-text text-muted">Tiempo minimo de barrido [s]</small>
+            </div>
+            <div class="form-group">
+                <label for="sweepResolution">Sweep resolution [points]</label>
+                <select class="form-control" id="sweepResolution" ng-options="item as item for item in ctrl.sweepResolutionList" ng-model="ctrl.sweepResolution" ng-change="ctrl.sweepResolutionChanged()">
+                </select>
+                <!--input type="number" class="form-control" id="sweepResolution" ng-model="ctrl.sweepResolution" ng-change="ctrl.sweepResolutionChanged()"--> 
+                <small id="sweepResolutionHelp" class="form-text text-muted">Resolución del barrido [puntos]</small>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="ctrl.setSweep()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Sweep Modal -->
+
+<!-- Freq/Dist Modal -->
+<!-- Este modal sirve para cambiar frequencia min, max, center y bw de cada trace -->
+<div class="modal fade" id="freqDistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Freq/Dist configuration</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <!--div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="trace1_freq" name="traceSelection" checked ng-click="ctrl.selectedTraceClicked(1)">
+              <label class="custom-control-label" for="trace1">{{ctrl.options[0].title.text}}</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="trace2_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(2)">
+              <label class="custom-control-label" for="trace2">{{ctrl.options[1].title.text}}</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="trace3_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(3)">
+              <label class="custom-control-label" for="trace3">{{ctrl.options[2].title.text}}</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="trace4_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(4)">
+              <label class="custom-control-label" for="trace4">{{ctrl.options[3].title.text}}</label>
+            </div-->
+            <form>
+              <div class="form-group">
+                <label for="minFreq">Min frequency [kHz]</label>
+                <input type="number" class="form-control" id="minFreq_freq" ng-model="ctrl.minFreq" ng-change="ctrl.minMaxChanged()"> 
+                <small id="minFreqHelp" class="form-text text-muted">Frecuencia mínima [kHz]</small>
+              </div>
+              <div class="form-group">
+                <label for="maxFreq">Max frequency [kHz]</label>
+                <input type="number" class="form-control" id="maxFreq_freq" ng-model="ctrl.maxFreq" ng-change="ctrl.minMaxChanged()">
+                <small id="maxFreqHelp" class="form-text text-muted">Frecuencia máxima [kHz]</small>
+              </div>
+              <div class="form-group">
+                <label for="medFreq">Medium frequency [kHz]</label>
+                <input type="number" class="form-control" id="medFreq_freq" ng-model="ctrl.medFreq" ng-change="ctrl.medBWChanged()">
+                <small id="medFreqHelp" class="form-text text-muted">Frecuencia central [kHz]</small>
+              </div>
+              <div class="form-group">
+                <label for="bw">BW [kHz]</label>
+                <input type="number" class="form-control" id="bw_freq" ng-model="ctrl.bw" ng-change="ctrl.medBWChanged()">
+                <small id="bwHelp" class="form-text text-muted">Ancho de banda [kHz]</small>
+              </div>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="ctrl.setTraceNewFreq()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Freq/Dist Modal -->
+
+<!-- Meas Setup Modal -->
+<div class="modal fade" id="measSetupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Meas Setup configuration</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Meas Setup Modal -->
+
+<!-- Scale/Amptd Modal -->
+<!-- Este modal sirve para modificar la escala de cada trace -->
+<div class="modal fade" id="scaleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Scale/Amptd configuration</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="trace1_freq" name="traceSelection" checked ng-click="ctrl.selectedTraceClicked(1)">
+            <label class="custom-control-label" for="trace1">{{ctrl.options[0].title.text}}</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="trace2_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(2)">
+            <label class="custom-control-label" for="trace2">{{ctrl.options[1].title.text}}</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="trace3_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(3)">
+            <label class="custom-control-label" for="trace3">{{ctrl.options[2].title.text}}</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="trace4_freq" name="traceSelection" ng-click="ctrl.selectedTraceClicked(4)">
+            <label class="custom-control-label" for="trace4">{{ctrl.options[3].title.text}}</label>
+          </div>
+          <form>
+            <div class="form-group">
+              <label for="scale">Scale [dBm]</label>
+              <input type="number" class="form-control" id="scale" ng-model="ctrl.scale" ng-change="ctrl.scaleChanged()"> 
+              <small id="scaleHelp" class="form-text text-muted">Escala [dBm]</small>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="ctrl.setScale()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Scale/Amptd Modal -->
+
+<!-- Limit Modal -->
+<div class="modal fade" id="limitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Limit configuration</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Limit Modal -->
+
+</div>

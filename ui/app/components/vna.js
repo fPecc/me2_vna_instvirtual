@@ -1,6 +1,14 @@
 'use strict';
 
-app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
+app.config(function($routeProvider) {
+    $routeProvider
+        .when("/vna", {
+            templateUrl : "views/components/vna.html"
+        });
+});
+
+
+app.controller("VnaCtrl", ['$scope','$http', function($scope, $http) {
     var self = this;
     var baseUrl = 'http://127.0.0.1:5000/';
 
@@ -67,10 +75,18 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
             method: 'GET',
             url: baseUrl + 'api/getActualConfig'
         };
+
+        iziToast.info({
+            title: 'Conectando...',
+            message: 'Obteniendo datos del VNA...'
+        });
+        var toast = document.querySelector('.iziToast'); // Selector of your toast
+
         $http(req)
                 .then(function(response) {
+                    iziToast.hide({}, toast);
                     var i = 0;
-                    self.ifBW = response.data.IFBW;
+                    self.ifBW = Number(response.data.IFBW)/1000; // paso a kHz
                     self.sweepResolution = response.data.sweepResolution;
                     response.data.traces.forEach(element => {
                         console.log(element);
@@ -186,11 +202,11 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
     self.selectedTraceClicked = function(i)
     {
         self.selectedTrace = i;
-        self.minFreq = self.options[i-1].scales.xAxes[0].ticks.min;
-        self.maxFreq = self.options[i-1].scales.xAxes[0].ticks.max;
+        self.minFreq = Number(self.options[i-1].scales.xAxes[0].ticks.min)/1000; // en kHz
+        self.maxFreq = Number(self.options[i-1].scales.xAxes[0].ticks.max)/1000; // en kHz
         self.medFreq = (self.minFreq+self.maxFreq)/2;
         self.bw = self.maxFreq-self.minFreq;
-        self.scale = self.options[i-1].scales.yAxes[0].ticks.stepSize;
+        self.scale = self.options[i-1].scales.yAxes[0].ticks.stepSize; // en dBm
     }
 
     self.minMaxChanged = function()
@@ -212,8 +228,8 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
             url: baseUrl + 'api/setTraceNewFreq',
             data: {
                 selectedTrace: self.selectedTrace,
-                minFreq: self.minFreq,
-                maxFreq: self.maxFreq
+                minFreq: self.minFreq * 1000, // paso kHz a Hz
+                maxFreq: self.maxFreq * 1000 // paso kHz a Hz
             },
             headers: {
                 "Content-Type": "application/json"
@@ -273,7 +289,7 @@ app.controller("TracesCtrl", ['$scope','$http', function($scope, $http) {
             method: 'POST',
             url: baseUrl + 'api/setIFBW',
             data: {
-                ifbw: self.ifBW
+                ifbw: self.ifBW * 1000 // paso kHz a Hz
             },
             headers: {
                 "Content-Type": "application/json"
