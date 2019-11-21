@@ -1,4 +1,4 @@
-import visa
+import pyvisa as visa
 import uuid
 from collections import deque
 from threading import Timer
@@ -25,8 +25,10 @@ class VNA:
             print ("----------------------------------------")
             self.debug = True
         else:
-            rm = visa.ResourceManager('C:\\Program Files (x86)\\IVI Foundation\\VISA\\WinNT\\agvisa\\agbin\\visa32.dll')
+            #rm = pyvisa.ResourceManager('C:\\Program Files (x86)\\IVI Foundation\\VISA\\WinNT\\agvisa\\agbin\\visa32.dll')
+            rm = visa.ResourceManager()
             self.myFieldFox = rm.open_resource(connectionString)
+            self.myFieldFox.write("INST \"NA\"")
             #self.myFieldFox.read_termination = '\n'
             #self.myFieldFox.write_termination = '\n'
             # self.myFieldFox.timeout = 30000

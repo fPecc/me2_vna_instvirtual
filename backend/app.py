@@ -10,7 +10,7 @@ import threading
 sem = threading.Semaphore()
 
 # Cambiar esta variable a False para produccion
-debug = True
+debug = False
 
 #mutex = False
 
